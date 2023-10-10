@@ -8,4 +8,7 @@ router.post("/register", authController.createRegisterUser);
 router.use("/login", authController.postLoginUser);
 //profile
 router.use("/profile", authController.getProfile);
+//logout
+router.use("/logout", authController.getLogout);
+
 module.exports = router;

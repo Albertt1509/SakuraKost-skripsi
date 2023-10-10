@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGO);
 
 app.use(cookieParser());
 app.use("/", authRoute);
+
 // app.get("/test", (req, res) => {
 //   res.json("test ok");
 // });

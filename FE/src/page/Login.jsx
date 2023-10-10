@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import UserContext from '../components/user/userContext';
+import '../App.css'
 
 export default function Login() {
+    //logic code login account
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState('')
@@ -13,6 +15,10 @@ export default function Login() {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+    //alert
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
     // Handle submit logic 
     async function handleSubmit(ev) {
@@ -20,10 +26,14 @@ export default function Login() {
         try {
             const { data } = await axios.post('/login', { email, password });
             setUser(data)
-            alert('login berhasil ')
+            setAlertMessage('Login berhasil');
+            setAlertType('success');
+            setShowAlert(true)
             setRedirect(true)
         } catch (e) {
-            alert('login gagal')
+            setAlertMessage('Username dan Password yang Anda Masukkan Salah, Coba Lagi');
+            setAlertType('error');
+            setShowAlert(true);
         }
     }
     // login done
@@ -31,10 +41,17 @@ export default function Login() {
         return <Navigate to={'/'} />
     }
     return (
-        <div className="p-2 mt-40 grow items-center justify-around">
-            <div className="mb-4">
-                <h1 className="text-4xl font-bold text-center p-2">Login</h1>
-                <form onSubmit={handleSubmit} className="max-w-md mx-auto" >
+        <div className="bg-white bg-opacity-40 p-4 rounded shadow-md mt-40 max-w-md mx-auto w-full">
+            <h1 className="text-4xl font-bold text-center p-4">Login</h1>
+            {showAlert && ( // Menampilkan kotak pesan jika showAlert bernilai true
+                <div className={`message-box message-box-${alertType} show`}>
+                    <i className={`fa fa-${alertType === 'success' ? 'check' : 'ban'} fa-2x`}></i>
+                    <span className="message-text"><strong>{alertType === 'success' ? 'Success' : 'Error'}:</strong> {alertMessage}</span>
+                    <i className="fa fa-times fa-2x exit-button" onClick={() => setShowAlert(false)}></i>
+                </div>
+            )}
+            <form onSubmit={handleSubmit} className='mt-5' >
+                <div className="gap-5">
                     <input
                         type="email"
                         placeholder="Email"
@@ -52,21 +69,27 @@ export default function Login() {
                         />
                         <span
                             onClick={togglePasswordVisibility}
-                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-xl cursor-pointer ${showPassword ? 'hidden' : 'block'}`}
+                            style={{
+                                position: 'absolute',
+                                right: '10px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                fontSize: '20px',
+                                cursor: 'pointer',
+                            }}
                         >
                             {showPassword ? '🙈' : '👁️'}
                         </span>
-
                     </div>
-                    <button type="submit bg-primary">Login</button>
-                    <div className="flex justify-end text-sm mt-2">
-                        Belum punya akun?
-                        <Link to="/register" className="font-bold ml-1 underline">
-                            Daftar
-                        </Link>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <button className='mt-2 ' type="submit bg-primary">Login</button>
+                <div className="flex justify-end text-sm mt-5">
+                    Belum punya akun?
+                    <Link to="/register" className="font-bold ml-1 underline">
+                        Daftar
+                    </Link>
+                </div>
+            </form>
         </div>
     );
 }

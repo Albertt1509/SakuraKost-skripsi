@@ -6,7 +6,7 @@ export default function Navbar() {
     const { user } = useContext(UserContext);
 
     return (
-        <header className="p-2 flex justify-between bg-primary">
+        <header className="bg-white bg-opacity-30 shadow-lg p-2 flex justify-between ">
             <Link to={'/'} className="flex items-center gap-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,7 @@ export default function Navbar() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-10 h-10"
+                    className="w-10 h-10 text-pink-600"
                 >
                     <path
                         strokeLinecap="round"
@@ -24,13 +24,13 @@ export default function Navbar() {
                 </svg>
                 <span className="font-bold">Phelia Kost</span>
             </Link>
-            <div className="flex border gap-2 border-white rounded-full px-4 py-2">
-                <div className="">Dimana</div>
-                <div className="border border-l border-white"></div>
-                <div className="">Kapan</div>
-                <div className="border border-l border-white"></div>
-                <div className="">Siapa</div>
-                <button className="bg-white p-2 rounded-full">
+            <div className="flex border gap-2 border-primary rounded-full px-4 py-2">
+                <div className="p-2">Dimana</div>
+                <div className="border border-l border-primary"></div>
+                <div className="p-2">Kapan</div>
+                <div className="border border-l border-primary"></div>
+                <div className="p-2">Siapa</div>
+                <button className="border-primary p-3 rounded-full">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -49,7 +49,7 @@ export default function Navbar() {
             </div>
             <Link
                 to={user ? '/account' : '/login'}
-                className="flex border gap-2 border-white rounded-full px-4 py-2 shadow-md  items-center"
+                className="flex border gap-2 border-pink-600 rounded-lg p-3   items-center"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ export default function Navbar() {
                     />
                 </svg>
                 {!!user && <>{user.name}</>}
-                <div className="bg-white rounded-full p-1 flex items-center">
+                <div className="border-pink-600 rounded-full p-1 flex items-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

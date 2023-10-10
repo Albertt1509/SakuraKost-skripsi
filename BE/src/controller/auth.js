@@ -6,11 +6,22 @@ const jwtSecret = "awdad231e2fdf243tr242d3d23";
 
 //register
 const createRegisterUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, alamat, nohp } = req.body;
+
+  // logic passowrd 8 character
+  if (password.length < 8 || !/\d/.test(password)) {
+    return res.status(422).json({
+      message:
+        "Password harus memiliki minimal 8 karakter dan mengandung angka.",
+    });
+  }
+
   try {
     const userData = await User.create({
       name,
       email,
+      alamat,
+      nohp,
       password: bcrypt.hashSync(password, bcryptSalt),
     });
     res.json(userData);
@@ -22,9 +33,14 @@ const createRegisterUser = async (req, res) => {
 //login
 const postLoginUser = async (req, res) => {
   const { email, password } = req.body;
-  const userData = await User.findOne({ email });
-  if (userData) {
+  try {
+    const userData = await User.findOne({ email });
+    if (!userData) {
+      return res.status(422).json("Email tidak ditemukan");
+    }
+    // Verifikasi kata sandi
     const passCorrect = bcrypt.compareSync(password, userData.password);
+
     if (passCorrect) {
       jwt.sign(
         { email: userData.email, id: userData._id },
@@ -36,10 +52,11 @@ const postLoginUser = async (req, res) => {
         }
       );
     } else {
-      res.status(422).json("password salah");
+      // Jika kata sandi salah, kirim respons kesalahan
+      res.status(422).json("Password yang Anda Masukkan Salah");
     }
-  } else {
-    res.json("not found");
+  } catch (e) {
+    res.status(500).json("Terjadi kesalahan server");
   }
 };
 
@@ -57,8 +74,13 @@ const getProfile = (req, res) => {
   }
 };
 
+//logout
+const getLogout = (req, res) => {
+  res.cookie("token", "").json(true);
+};
 module.exports = {
   createRegisterUser,
   postLoginUser,
   getProfile,
+  getLogout,
 };
