@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const authController = require("../controller/auth");
-
+const authController = require("../controller/authController");
 //register
-router.post("/register", authController.createRegisterUser);
+router.post("/api/register", authController.createRegisterUser);
 //login
-router.use("/login", authController.postLoginUser);
+router.use("/api/login", authController.postLoginUser);
 //profile
-router.use("/profile", authController.getProfile);
+router.use("/api/profile", authController.getProfile);
 //logout
-router.use("/logout", authController.getLogout);
-
+router.use("/api/logout", authController.getLogout);
 module.exports = router;

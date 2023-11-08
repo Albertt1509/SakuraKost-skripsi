@@ -24,12 +24,17 @@ export default function Login() {
     async function handleSubmit(ev) {
         ev.preventDefault();
         try {
-            const { data } = await axios.post('/login', { email, password });
+            const { data } = await axios.post('/api/login', { email, password });
             setUser(data)
             setAlertMessage('Login berhasil');
             setAlertType('success');
             setShowAlert(true)
             setRedirect(true)
+            if (data.role === 'admin') {
+                setRedirect('/admin')
+            } else {
+                setRedirect('/')
+            }
         } catch (e) {
             setAlertMessage('Username dan Password yang Anda Masukkan Salah, Coba Lagi');
             setAlertType('error');
@@ -38,7 +43,7 @@ export default function Login() {
     }
     // login done
     if (redirect) {
-        return <Navigate to={'/'} />
+        return <Navigate to={redirect} />
     }
     return (
         <div className="bg-white bg-opacity-40 p-4 rounded shadow-md mt-40 max-w-md mx-auto w-full">

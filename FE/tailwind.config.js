@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         primary: "#f24463",
-        lens: "#a2a3a2",
+        lens: "#f2e9fa",
       },
     },
   },

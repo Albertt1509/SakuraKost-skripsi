@@ -1,44 +1,26 @@
 const mongoose = require("mongoose");
-const { schema } = mongoose;
-const KostSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    require: true,
-  },
-  type: {
-    type: String,
-    require: true,
-  },
-  alamat: {
-    type: String,
-    require: true,
-  },
-  jarak: {
-    type: String,
-  },
-  gambar: {
-    type: [String],
-  },
-  deskripsi: {
-    type: String,
-    require: true,
-  },
-  rating: {
-    type: String,
-    min: 0,
-    min: 5,
-  },
-  kamar: {
-    type: [String],
-  },
-  harga: {
-    type: Number,
-    require: true,
-  },
-  featured: {
-    type: Boolean,
-    require: true,
-  },
+
+const kostSchema = new mongoose.Schema({
+  title: String,
+  address: String,
+  photos: [{ type: String }],
+  description: String,
+  moreinfo: String,
+  capacity: Number,
+  location: String,
+  owner: String,
+  phoneNumber: Number,
+  price: Number,
+  wifi: Boolean,
+  parking: Boolean,
+  kitchen: Boolean,
+  laundry: Boolean,
+  servant: Boolean,
+  free: Boolean,
+  fullRoom: Boolean,
+  pet: Boolean,
+  energy: Boolean,
+  water: Boolean,
 });
 
-module.exports = mongoose.model("kost", KostSchema);
+module.exports = mongoose.model("Kost", kostSchema);

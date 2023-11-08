@@ -2,12 +2,20 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import IndexPage from './page/IndexPage'
 import Login from './page/Login'
-import Layout from './Layout'
+import Layout from './components/navbar/Layout'
 import Register from './page/Register'
 import Account from './page/Account'
 import axios from 'axios'
 import { UserContextProvider } from './components/user/UserContext'
-
+//admin
+import IndexAdmin from './components/admin/IndexAdmin'
+import Home from './components/admin/home/Home'
+import Kost from './components/admin/kost/Kost'
+import Product from './components/admin/product/Product'
+import AdminLay from './components/navbar/LayoutAdmin'
+import User from './components/admin/user/User'
+import Edit from './components/admin/kost/Edit'
+//api
 axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true
 function App() {
@@ -20,8 +28,18 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/account/:subpage?' element={<Account />} />
+          <Route path='/account/:subpage/:action' element={<Account />} />
+        </Route>
+        <Route path='/admin' element={<AdminLay />} >
+          <Route index element={<IndexAdmin />} />
+          <Route path='/admin/home' element={<Home />} />
+          <Route path='/admin/product' element={<Product />} />
+          <Route path='/admin/kost' element={<Kost />} />
+          <Route path='/admin/user' element={<User />} />
+          <Route path='/admin/edit' element={<Edit />} />
         </Route>
       </Routes>
+
     </UserContextProvider>
 
 

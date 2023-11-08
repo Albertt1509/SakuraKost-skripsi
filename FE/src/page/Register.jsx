@@ -25,7 +25,7 @@ export default function Register() {
         }
 
         try {
-            await axios.post('/register', { name, email, password, alamat, nohp });
+            await axios.post('/api/register', { name, email, password, alamat, nohp });
             alert('Registrasi berhasil');
         } catch (e) {
             alert('Registrasi gagal');

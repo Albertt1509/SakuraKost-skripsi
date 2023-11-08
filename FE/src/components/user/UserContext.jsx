@@ -11,7 +11,7 @@ export function UserContextProvider({ children }) {
         //get data 
         const fetchData = async () => {
             try {
-                const { data } = await axios.get('/profile');
+                const { data } = await axios.get('/api/profile');
                 setUser(data);
                 setRedy(true)
             } catch (error) {
