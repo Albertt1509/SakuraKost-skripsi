@@ -87,7 +87,7 @@ export default function Login() {
                         </span>
                     </div>
                 </div>
-                <button className='mt-2 ' type="submit bg-primary">Login</button>
+                <button className='mt-5 flex bg-pink-600 w-full justify-center p-1 rounded-lg text-white ' type="submit bg-primary">Login</button>
                 <div className="flex justify-end text-sm mt-5">
                     Belum punya akun?
                     <Link to="/register" className="font-bold ml-1 underline">

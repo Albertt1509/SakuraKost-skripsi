@@ -16,6 +16,7 @@ export default function Register() {
     const [nohp, setNoHp] = useState('');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [gender, setGender] = useState('');
 
     async function registerUser(ev) {
         ev.preventDefault();
@@ -25,14 +26,14 @@ export default function Register() {
         }
 
         try {
-            await axios.post('/api/register', { name, email, password, alamat, nohp });
+            await axios.post('/api/register', { name, email, password, alamat, nohp, gender });
             alert('Registrasi berhasil');
         } catch (e) {
             alert('Registrasi gagal');
         }
     }
     return (
-        <div className="bg-white p-4 bg-opacity-40 rounded max-w-md mx-auto w-full mt-40 ">
+        <div className="bg-white p-4 bg-opacity-40 rounded max-w-md shadow-md mx-auto w-full mt-40 ">
             <div className="grow flex items-center justify-around ">
                 <div className="mb-4">
                     <h1 className="text-4xl font-bold text-center p-2 mb-5">Register</h1>
@@ -55,6 +56,15 @@ export default function Register() {
                             value={alamat}
                             onChange={ev => setAlamat(ev.target.value)}
                         />
+                        <select
+                            value={gender}
+                            onChange={(ev) => setGender(ev.target.value)}
+                            className="border text-gray-400 border-gray-300 bg-white rounded-md px-4 py-3 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                        >
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="male">Laki-laki</option>
+                            <option value="female">Perempuan</option>
+                        </select>
                         <input
                             type="text"
                             placeholder={'No Handphone'}
@@ -83,7 +93,7 @@ export default function Register() {
                                 {showPassword ? '🙈' : '👁️'}
                             </span>
                         </div>
-                        <button className='mt-5'>Daftar</button>
+                        <button className='mt-5 flex bg-pink-600 w-full justify-center p-1 rounded-lg text-white'>Daftar</button>
                         {passwordError && <p className="text-red-500">{passwordError}</p>}
                         <div className="flex justify-end text-sm mt-2">
                             Sudah punya akun?

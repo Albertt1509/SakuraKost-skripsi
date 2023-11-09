@@ -1,26 +1,84 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
-const Modal = ({ isOpen, onClose, kost, kostId }) => {
+const Modal = ({ isOpen, onClose, kost }) => {
     const [editedKost, setEditedKost] = useState({ ...kost });
+
     useEffect(() => {
         // Update the editedKost state when kost prop changes
         setEditedKost({ ...kost });
     }, [kost]);
 
+
+    //update photos
+    const handlePhotoChange = (e) => {
+        const { name, files } = e.target;
+
+        // Mengambil file-file yang dipilih
+        const selectedPhotos = Array.from(files);
+
+        // Mengupdate editedKost.photos dengan array file-file yang dipilih
+        setEditedKost((prevState) => ({
+            ...prevState,
+            [name]: selectedPhotos,
+        }));
+    };
+    //save update data
     const handleSave = async () => {
         try {
             const formData = new FormData();
             for (const key in editedKost) {
-                formData.append(key, editedKost[key]);
-            }
-            await axios.put(`/api/kost/${kostId}`, formData); // Gantilah "kostId" dengan ID yang sesuai
+                if (key === 'photos') {
+                    for (let i = 0; i < editedKost[key].length; i++) {
+                        formData.append('photos', editedKost[key][i]);
 
+                    }
+                } else {
+                    formData.append(key, editedKost[key]);
+                }
+            }
+
+            await axios.put(`/api/kost/${editedKost._id}`, formData);
+            toast.success('Data Telah Disimpan', {
+                position: 'top-right',
+                style: {
+                    whiteSpace: 'nowrap',
+                },
+                autoClose: 3000,
+            });
+            const fileInput = document.querySelector('input[type="file"]');
+            if (fileInput) {
+                fileInput.value = '';
+            }
+            setEditedKost({
+                title: '',
+                address: '',
+                location: '',
+                photos: [],
+                capacity: '',
+                owner: '',
+                price: '',
+                phoneNumber: '',
+                description: '',
+                moreinfo: '',
+                wifi: false,
+                parking: false,
+                kitchen: false,
+                laundry: false,
+                servant: false,
+                free: false,
+                fullRoom: false,
+                pet: false,
+                energy: false,
+                water: false,
+            });
         } catch (error) {
-            console.log(error, 'error to update data')
+            console.error(error, 'gagal dalam memperbaharui data');
         }
-    }
+    };
+    //input change data
     const handleInputChange = (e) => {
         const { name, value, type, checked, files } = e.target;
 
@@ -44,7 +102,6 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
             }));
         }
     };
-
     return (
         <>
             {isOpen && (
@@ -56,6 +113,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
                             &#8203;
                         </span>
+                        {/*  */}
                         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div className="sm:flex sm:items-start">
@@ -63,6 +121,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Kost</h3>
                                         <div className="mt-2 p-3" style={{ maxHeight: '400px', overflowY: 'scroll' }}>
                                             <div className="mt-2 w-[400px] justify-center">
+                                                {/* input data */}
                                                 <div className="mb-2">
                                                     <label className="block text-sm font-medium text-gray-700">Title:</label>
                                                     <input
@@ -74,7 +133,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                                                     />
                                                 </div>
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Location:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Address:</label>
                                                     <input
                                                         type="text"
                                                         name="address"
@@ -84,12 +143,23 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                                                     />
                                                 </div>
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Image:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Location:</label>
+                                                    <input
+                                                        type="text"
+                                                        name="location"
+                                                        value={editedKost.location}
+                                                        onChange={handleInputChange}
+                                                        className="w-full p-2 border border-gray-300 rounded"
+                                                    />
+                                                </div>
+                                                <div className="mb-2">
+                                                    <label className="block text-sm font-medium text-gray-700">Photos:</label>
                                                     <input
                                                         type="file"
                                                         name="photos"
-                                                        onChange={handleInputChange}
+                                                        onChange={handlePhotoChange}
                                                         className="w-full p-2 border border-gray-300 rounded"
+                                                        multiple
                                                     />
                                                 </div>
                                             </div>
@@ -99,7 +169,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                                                     type="text"
                                                     name="capacity"
                                                     value={editedKost.capacity}
-                                                    onChange={handleInputChange}
+                                                    onChange={(e) => handlePhotoChange(e)}
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />
                                             </div>
@@ -153,6 +223,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />
                                             </div>
+                                            {/* fasility */}
                                             <div className="mt-2 justify-center">
                                                 <label className="block text-lg font-bold text-gray-700 mb-3">Facility</label>
                                                 <div className="mb-2 grid grid-cols-3 grid-rows-3 gap-2">
@@ -283,6 +354,7 @@ const Modal = ({ isOpen, onClose, kost, kostId }) => {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </>
     );
 };

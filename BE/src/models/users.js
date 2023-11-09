@@ -5,6 +5,13 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
+    required: true,
+    validate: {
+      validator: function (value) {
+        return /\S+@\S+\.\S+/.test(value);
+      },
+      message: "Email tidak valid",
+    },
   },
 
   alamat: String,
@@ -12,7 +19,10 @@ const userSchema = new Schema({
     type: Number,
     unique: true,
   },
-
+  gender: {
+    type: String,
+    enum: ["male", "female"],
+  },
   password: String,
   role: {
     type: String,

@@ -6,7 +6,7 @@ const jwtSecret = "awdad231e2fdf243tr242d3d23";
 
 //register
 const createRegisterUser = async (req, res) => {
-  const { name, email, password, alamat, nohp } = req.body;
+  const { name, email, password, alamat, nohp, gender } = req.body;
 
   // logic passowrd 8 character
   if (password.length < 8 || !/\d/.test(password)) {
@@ -22,6 +22,7 @@ const createRegisterUser = async (req, res) => {
       email,
       alamat,
       nohp,
+      gender,
       password: bcrypt.hashSync(password, bcryptSalt),
       role: "user",
     });

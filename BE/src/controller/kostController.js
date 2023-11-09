@@ -2,7 +2,7 @@ const Kost = require("../models/kost"); // Pastikan Anda memiliki file kostModel
 const multer = require("multer");
 const path = require("path");
 const router = require("express").Router();
-
+const fs = require("fs");
 // Konfigurasi Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -100,7 +100,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
   }
 });
 //upadate data
-router.put("/kost/:id", upload.array("photos", 5), async (req, res) => {
+router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
   try {
     const { id } = req.params; // Ambil ID dari parameter rute
     const {
@@ -151,7 +151,6 @@ router.put("/kost/:id", upload.array("photos", 5), async (req, res) => {
     };
 
     // Lakukan operasi pembaruan data Kost berdasarkan ID
-    // Contoh: Kost.findByIdAndUpdate(id, updatedKost, { new: true })
     const result = await Kost.findByIdAndUpdate(id, updatedKost, { new: true });
 
     if (!result) {
@@ -162,6 +161,30 @@ router.put("/kost/:id", upload.array("photos", 5), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Gagal memperbarui data Kost." });
+  }
+});
+//delete
+router.delete("/kost/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Lakukan operasi penghapusan data Kost berdasarkan ID
+    // Contoh: Kost.findByIdAndRemove(id)
+    const deletedKost = await Kost.findByIdAndRemove(id);
+
+    if (!deletedKost) {
+      return res.status(404).json({ error: "Data Kost tidak ditemukan." });
+    }
+
+    // Hapus gambar dari direktori
+    deletedKost.photos.forEach((photo) => {
+      const filePath = path.join("public/uploads/", photo);
+      fs.unlinkSync(filePath);
+    });
+
+    res.json({ message: "Data Kost berhasil dihapus." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Gagal menghapus data Kost." });
   }
 });
 

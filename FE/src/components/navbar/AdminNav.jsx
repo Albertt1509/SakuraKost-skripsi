@@ -48,10 +48,10 @@ export default function AdminPage() {
                         {menuVisible && (
                             <ul className="absolute top-15 left-16 w-40  bg-white text-black border rounded-md p-2">
                                 <li className="hover:bg-gray-200 cursor-pointer">
-                                    <Link to={'/admin/kost'} onClick={closeMenu}>Add Kost</Link>
+                                    <Link to={'/admin/kost'} onClick={closeMenu}>Tambah Kost</Link>
                                 </li>
                                 <li className="hover:bg-gray-200 cursor-pointer">
-                                    <Link to={'/admin/edit'} onClick={closeMenu}>Edit Kost</Link>
+                                    <Link to={'/admin/edit'} onClick={closeMenu}>Lihat Kost</Link>
                                 </li>
                             </ul>
                         )}
