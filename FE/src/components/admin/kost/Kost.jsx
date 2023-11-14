@@ -145,23 +145,6 @@ export default function Kost() {
                             onChange={(e) => setTitle(e.target.value)}
                         />
                     </div>
-                    {/* Upload Image */}
-                    <div>
-                        <h2 className="text-2xl font-bold ">Unggah Gambar</h2>
-                        <input
-                            type="file"
-                            name="photos"
-                            className="w-full p-2 border mt-2 border-gray-300 rounded"
-                            onChange={handleImageChange}
-                        />
-                        {imagePreview && (
-                            <img
-                                src={imagePreview}
-                                alt="Selected Image"
-                                style={{ maxWidth: '50px', display: 'flex justify-content-center ' }} // Adjust the size as needed
-                            />
-                        )}
-                    </div>
                     <div>
                         <h2 className="text-2xl font-bold">Alamat</h2>
                         <input
@@ -180,6 +163,15 @@ export default function Kost() {
                             className="w-full p-3 border border-gray-300 rounded"
                             value={owner}
                             onChange={(e) => setOwner(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Lokasi Kost</h2>
+                        <input
+                            type="text"
+                            placeholder="Semarang Kota"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
                         />
                     </div>
                     <div>
@@ -210,13 +202,30 @@ export default function Kost() {
                         />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">Lokasi Kost</h2>
+                        <h2 className="text-2xl font-bold">Jumlah Kamar</h2>
                         <input
                             type="text"
-                            placeholder="Semarang Kota"
+                            placeholder="Jumlah Kamar belum dicoding"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                         />
+                    </div>
+                    {/* Upload Image */}
+                    <div>
+                        <h2 className="text-2xl font-bold ">Unggah Gambar</h2>
+                        <input
+                            type="file"
+                            name="photos"
+                            className="w-full p-2 border mt-2 border-gray-300 rounded"
+                            onChange={handleImageChange}
+                        />
+                        {imagePreview && (
+                            <img
+                                src={imagePreview}
+                                alt="Selected Image"
+                                style={{ maxWidth: '50px', display: 'flex justify-content-center ' }} // Adjust the size as needed
+                            />
+                        )}
                     </div>
                 </div>
                 {/* description */}
@@ -342,7 +351,7 @@ export default function Kost() {
                     <button
                         type="submit"
                         className="w-[231px] h-[48px] bg-pink-600 text-white font-medium rounded-sm text-[14px]"
-                    >Save Data
+                    >Simnpan
                     </button>
                 </div>
                 {/* cl button */}

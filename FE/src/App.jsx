@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import IndexPage from './page/IndexPage'
+import axios from 'axios'
+import IndexPage from './components/user/home/IndexPage'
 import Login from './page/Login'
 import Layout from './components/navbar/Layout'
 import Register from './page/Register'
 import Account from './page/Account'
-import axios from 'axios'
+import Menu from './components/user/content/Menu'
 import { UserContextProvider } from './components/user/UserContext'
 //admin
 import IndexAdmin from './components/admin/IndexAdmin'
@@ -15,6 +16,8 @@ import Product from './components/admin/product/Product'
 import AdminLay from './components/navbar/LayoutAdmin'
 import User from './components/admin/user/User'
 import Edit from './components/admin/kost/Edit'
+
+
 //api
 axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true
@@ -26,9 +29,11 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<IndexPage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/content' element={<Menu />} />
           <Route path='/register' element={<Register />} />
           <Route path='/account/:subpage?' element={<Account />} />
           <Route path='/account/:subpage/:action' element={<Account />} />
+
         </Route>
         <Route path='/admin' element={<AdminLay />} >
           <Route index element={<IndexAdmin />} />

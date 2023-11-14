@@ -44,7 +44,6 @@ export default function AccountPage() {
                 <nav className="flex justify-center gap-5">
                     <Link className={linkActive('profile')} to={'/account/profile'}>My Profile</Link>
                     <Link className={linkActive('booking')} to={'/account/booking'}>My Booking Kost</Link>
-                    <Link className={linkActive('kost')} to={'/account/kost'}>My Kost</Link>
                 </nav>
                 {subpage === 'profile' && (
                     <div className="bg-white bg-opacity-50 p-4 rounded shadow-md mt-4">

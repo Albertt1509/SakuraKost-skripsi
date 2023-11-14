@@ -61,7 +61,15 @@ const postLoginUser = async (req, res) => {
     res.status(500).json("Terjadi kesalahan server");
   }
 };
-
+//get all data
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, "name alamat role");
+    res.json(users);
+  } catch (error) {
+    res.status(500).json("Terjadi kesalahan server");
+  }
+};
 //profile
 const getProfile = (req, res) => {
   const { token } = req.cookies;
@@ -85,4 +93,5 @@ module.exports = {
   postLoginUser,
   getProfile,
   getLogout,
+  getAllUsers,
 };

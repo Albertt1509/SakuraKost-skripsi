@@ -3,7 +3,14 @@
 @tailwind utilities;
 
 /* font */
+@font-face {
+    font-family: myFont;
+    src: url(./assets/Sankyu.ttf);
+}
 
+h5 {
+    font-family: myFont;
+}
 
 input[type='text'],
 input[type='password'],
