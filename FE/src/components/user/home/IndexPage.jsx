@@ -78,7 +78,7 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {/* Card 1 */}
                     <div className="bg-white p-4 rounded-lg " id="kapan">
-                        <p className="text-sm opacity-40 p-5 text-center">Lokasi</p>
+                        <p className="text-sm opacity-40 p-5 text-center">Pilih Lokasi</p>
                         <div className='flex justify-center items-center'>
                             <Location />
                         </div>

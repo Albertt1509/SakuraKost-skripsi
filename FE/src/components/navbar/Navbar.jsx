@@ -34,7 +34,7 @@ export default function Navbar() {
 
     return (
         <nav className={navbarClasses} >
-            <header className="flex justify-between fixed top-0 z-50 p-4 w-full">
+            <header className=" flex  justify-between fixed top-0 z-50 p-4 w-full">
                 <div className="hidden lg:flex items-center text-lg gap-4 justify-between">
                     <img
                         src={Icon}
