@@ -33,7 +33,7 @@ export default function Register() {
         }
     }
     return (
-        <div className="bg-white p-4 bg-opacity-40 rounded max-w-md shadow-md mx-auto w-full mt-40 ">
+        <div className="bg-white p-4 rounded max-w-md shadow-md mx-auto w-full mt-40 ">
             <div className="grow flex items-center justify-around ">
                 <div className="mb-4">
                     <h1 className="text-4xl font-bold text-center p-2 mb-5">Register</h1>

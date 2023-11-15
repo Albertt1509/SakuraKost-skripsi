@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Music from '../../../assets/music/music.mp3';
 
-const Player = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-
+const Player = ({ isPlaying }) => {
     const audioRef = useRef(null);
 
     useEffect(() => {
@@ -14,20 +12,12 @@ const Player = () => {
         }
     }, [isPlaying]);
 
-    const playPauseHandler = () => {
-        setIsPlaying(!isPlaying);
-    };
-
-
     return (
         <div>
-            <audio
-                ref={audioRef}
-                src={Music}
-            ></audio>
-            {/* Tambahkan tombol play/pause dan informasi pemutaran lainnya */}
-            <button onClick={playPauseHandler}>{isPlaying ? 'Pause' : 'Play'}</button>
-
+            <audio ref={audioRef} src={Music}></audio>
+            <button className='opacity-0'>
+                {isPlaying ? '.' : ','}
+            </button>
         </div>
     );
 };

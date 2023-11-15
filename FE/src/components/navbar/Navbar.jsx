@@ -36,19 +36,24 @@ export default function Navbar() {
         <nav className={navbarClasses} >
             <header className="flex justify-between fixed top-0 z-50 p-4 w-full">
                 <div className="hidden lg:flex items-center text-lg gap-4 justify-between">
-                    <Link to={'/'} className=" flex items-center gap-1">
-                        <img src={Icon} alt="" className="w-20 h-20" />
+                    <img
+                        src={Icon}
+                        alt=""
+                        className='w-20 h-20 '
+                    />
+
+                    <Link to={'/'} className="flex items-center gap-1">
                         <span className="font-bold">Sakura Kost</span>
                     </Link>
                 </div>
-                {/* menu (visible on large screen) */}
+                {/* menu (visible on sm screen) */}
                 <div className="hidden lg:flex items-center text-lg gap-4 justify-between">
                     <ul className="lg:flex items-center text-lg gap-4">
                         <li className="p-2 font-bold"> Dimana</li>
                         <div className="">|</div>
-                        <li className="p-2 font-bold">Kapan</li>
+                        <a href="#kapan" className="p-2 font-bold">Kapan</a>
                         <div className="">|</div>
-                        <li className="p-2 font-bold">Siapa</li>
+                        <a href="" className="p-2 font-bold">Siapa</a>
                     </ul>
                     <button className="border-primary p-3 rounded-full">
                         <svg
@@ -93,15 +98,15 @@ export default function Navbar() {
                         </svg>
                     </div>
                 </div>
-                {/* sm */}
+                {/* slide bar */}
                 <div className={`sm:hidden fixed top-0 left-0 w-60 h-full bg-pink-600 transform ${menuVisible ? 'translate-x-0' : '-translate-x-60'} transition-transform duration-300 ease-in-out text-white p-4 pt-16`}>
                     <ul>
                         <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
                             <Link to=''>Dimana</Link>
                         </li>
-                        <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
-                            <Link to=''>Kapan</Link>
-                        </li>
+                        <a href="#kapan" className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
+                            Kapan
+                        </a>
                         <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
                             <Link to=''>Siapa</Link>
                         </li>
@@ -109,7 +114,7 @@ export default function Navbar() {
                         <Link to={user ? '/account' : '/login'} className="flex gap-2 rounded-lg p-3 items-center">
                             {!!user && <>{user.name}</>}
                             <div className=" p-1 flex items-center">
-                                <Link to=''>Login</Link>
+                                Login
                             </div>
                         </Link>
                         <div className="keranjang flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">

@@ -47,7 +47,7 @@ export default function Login() {
 
     return (
         <div className=" w-full h-screen">
-            <div className="bg-white bg-opacity-40 p-4 rounded shadow-md mt-40 max-w-md mx-auto w-full">
+            <div className="bg-white  p-4 rounded shadow-md mt-40 max-w-md mx-auto w-full">
                 <h1 className="text-4xl font-bold text-center p-4">Login</h1>
                 {showAlert && (
                     <div className={`message-box message-box-${alertType} show`}>
