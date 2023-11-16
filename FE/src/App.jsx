@@ -6,7 +6,8 @@ import Login from './page/Login'
 import Layout from './components/navbar/Layout'
 import Register from './page/Register'
 import Account from './page/Account'
-import Menu from './components/user/content/Menu'
+import Content from './components/user/content/Content'
+import DetailKost from './components/user/content/DetailKost'
 import { UserContextProvider } from './components/user/UserContext'
 //admin
 import IndexAdmin from './components/admin/IndexAdmin'
@@ -29,7 +30,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<IndexPage />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/content' element={<Menu />} />
+          <Route path='/content' element={<Content />} />
+          <Route path='/content/:id' element={<DetailKost />} />
           <Route path='/register' element={<Register />} />
           <Route path='/account/:subpage?' element={<Account />} />
           <Route path='/account/:subpage/:action' element={<Account />} />

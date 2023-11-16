@@ -1,5 +1,6 @@
 import React from 'react';
 import Clock from '../widget/Date';
+import Gif from '../../assets/animation/Neco.gif'
 export default function IndexAdmin() {
     return (
         <>
@@ -8,8 +9,10 @@ export default function IndexAdmin() {
                     <h1 className="text-2xl font-bold">Welcome to Dashboard Admin</h1>
                     <Clock className="p-2 pt-3" />
                 </div>
-                <div className="bg-white"></div>
-            </div>
+                <div className='flex justify-center items-center'>
+                    <img src={Gif} alt="" />
+                </div>
+            </div >
         </>
     );
 }

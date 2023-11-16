@@ -1,9 +1,11 @@
 import React from 'react';
+import KostList from './KostList'
 
-const TwoColorSolidBackgroundVertical = () => {
+export default function Menu() {
+
     const containerStyle = {
         background: '#f472b6',
-        height: '30vh', // Adjusted height for better visibility
+        height: '30vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -15,7 +17,6 @@ const TwoColorSolidBackgroundVertical = () => {
         flexGrow: 1,
         position: 'relative',
     };
-
 
     return (
         <>
@@ -52,9 +53,11 @@ const TwoColorSolidBackgroundVertical = () => {
                     </div>
                 </header>
             </div>
+            <div className="p-6 mt-8">
+                <KostList />
+            </div>
         </>
 
     );
-};
 
-export default TwoColorSolidBackgroundVertical;
+}

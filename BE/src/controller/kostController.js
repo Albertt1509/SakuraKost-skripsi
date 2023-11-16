@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + ext); // Nama file akan menjadi timestamp unik
   },
 });
-
 const upload = multer({ storage: storage });
 
 // Rute GET untuk mengambil data Kost
@@ -74,8 +73,6 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       energy,
       water,
     });
-
-    //upadate data
 
     //delete data
     const deleteDataKost = async (req, res) => {
