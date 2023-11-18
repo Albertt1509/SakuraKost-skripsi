@@ -59,6 +59,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 photos: [],
                 capacity: '',
                 owner: '',
+                kamar: '',
                 price: '',
                 phoneNumber: '',
                 description: '',
@@ -123,7 +124,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                             <div className="mt-2 w-[400px] justify-center">
                                                 {/* input data */}
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Title:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Judul:</label>
                                                     <input
                                                         type="text"
                                                         name="title"
@@ -133,7 +134,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     />
                                                 </div>
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Address:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Alamat:</label>
                                                     <input
                                                         type="text"
                                                         name="address"
@@ -143,7 +144,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     />
                                                 </div>
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Location:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Lokasi:</label>
                                                     <input
                                                         type="text"
                                                         name="location"
@@ -153,7 +154,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     />
                                                 </div>
                                                 <div className="mb-2">
-                                                    <label className="block text-sm font-medium text-gray-700">Photos:</label>
+                                                    <label className="block text-sm font-medium text-gray-700">Foto:</label>
                                                     <input
                                                         type="file"
                                                         name="photos"
@@ -164,7 +165,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 </div>
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Capacity:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Kapasitas:</label>
                                                 <input
                                                     type="text"
                                                     name="capacity"
@@ -174,7 +175,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 />
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Owner:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Pemilik:</label>
                                                 <input
                                                     type="text"
                                                     name="owner"
@@ -184,7 +185,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 />
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Price:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Harga:</label>
                                                 <input
                                                     type="text"
                                                     name="price"
@@ -194,7 +195,17 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 />
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Phone Number:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Jumlah Kamar:</label>
+                                                <input
+                                                    type="text"
+                                                    name="kamar"
+                                                    value={editedKost.kamar}
+                                                    onChange={handleInputChange}
+                                                    className="w-full p-2 border border-gray-300 rounded"
+                                                />
+                                            </div>
+                                            <div className="mb-2">
+                                                <label className="block text-sm font-medium text-gray-700">No Handphone:</label>
                                                 <input
                                                     type="text"
                                                     name="phoneNumber"
@@ -204,7 +215,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 />
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Description:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Deskripsi:</label>
                                                 <textarea
                                                     type="text"
                                                     name="description"
@@ -214,7 +225,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 />
                                             </div>
                                             <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">More Information:</label>
+                                                <label className="block text-sm font-medium text-gray-700">Informasi Tambahan:</label>
                                                 <textarea
                                                     type="text"
                                                     name="moreinfo"
@@ -225,7 +236,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                             </div>
                                             {/* fasility */}
                                             <div className="mt-2 justify-center">
-                                                <label className="block text-lg font-bold text-gray-700 mb-3">Facility</label>
+                                                <label className="block text-lg font-bold text-gray-700 mb-3">Fasilitas</label>
                                                 <div className="mb-2 grid grid-cols-3 grid-rows-3 gap-2">
                                                     <div className="flex items-center">
                                                         <input
@@ -245,7 +256,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                             onChange={handleInputChange}
                                                             className="mr-2"
                                                         />
-                                                        <label className="block text-sm font-medium text-gray-700">Parking</label>
+                                                        <label className="block text-sm font-medium text-gray-700">Area Parkir</label>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <input
@@ -255,57 +266,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                             onChange={handleInputChange}
                                                             className="mr-2"
                                                         />
-                                                        <label className="block text-sm font-medium text-gray-700">Kitchen</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            type="checkbox"
-                                                            name="laundry"
-                                                            checked={editedKost.laundry}
-                                                            onChange={handleInputChange}
-                                                            className="mr-2"
-                                                        />
-                                                        <label className="block text-sm font-medium text-gray-700">Laundry</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            type="checkbox"
-                                                            name="servant"
-                                                            checked={editedKost.servant}
-                                                            onChange={handleInputChange}
-                                                            className="mr-2"
-                                                        />
-                                                        <label className="block text-sm font-medium text-gray-700">Servant</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            type="checkbox"
-                                                            name="free"
-                                                            checked={editedKost.free}
-                                                            onChange={handleInputChange}
-                                                            className="mr-2"
-                                                        />
-                                                        <label className="block text-sm font-medium text-gray-700">Free Enter</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            type="checkbox"
-                                                            name="fullRoom"
-                                                            checked={editedKost.fullRoom}
-                                                            onChange={handleInputChange}
-                                                            className="mr-2"
-                                                        />
-                                                        <label className="block text-sm font-medium text-gray-700">Full Room</label>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <input
-                                                            type="checkbox"
-                                                            name="pet"
-                                                            checked={editedKost.pet}
-                                                            onChange={handleInputChange}
-                                                            className="mr-2"
-                                                        />
-                                                        <label className="block text-sm font-medium text-gray-700">Pet</label>
+                                                        <label className="block text-sm font-medium text-gray-700">Dapur Bersama</label>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <input
@@ -315,7 +276,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                             onChange={handleInputChange}
                                                             className="mr-2"
                                                         />
-                                                        <label className="block text-sm font-medium text-gray-700">Energy</label>
+                                                        <label className="block text-sm font-medium text-gray-700">Listrik</label>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <input
@@ -325,7 +286,57 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                             onChange={handleInputChange}
                                                             className="mr-2"
                                                         />
-                                                        <label className="block text-sm font-medium text-gray-700">Water</label>
+                                                        <label className="block text-sm font-medium text-gray-700">Air</label>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="laundry"
+                                                            checked={editedKost.laundry}
+                                                            onChange={handleInputChange}
+                                                            className="mr-2"
+                                                        />
+                                                        <label className="block text-sm font-medium text-gray-700">Tempat Cucian</label>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="servant"
+                                                            checked={editedKost.servant}
+                                                            onChange={handleInputChange}
+                                                            className="mr-2"
+                                                        />
+                                                        <label className="block text-sm font-medium text-gray-700">Petugas Kebersihan</label>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="free"
+                                                            checked={editedKost.free}
+                                                            onChange={handleInputChange}
+                                                            className="mr-2"
+                                                        />
+                                                        <label className="block text-sm font-medium text-gray-700">Bebas Dimasuki</label>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="fullRoom"
+                                                            checked={editedKost.fullRoom}
+                                                            onChange={handleInputChange}
+                                                            className="mr-2"
+                                                        />
+                                                        <label className="block text-sm font-medium text-gray-700">Fasilitas Lengkap</label>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="pet"
+                                                            checked={editedKost.pet}
+                                                            onChange={handleInputChange}
+                                                            className="mr-2"
+                                                        />
+                                                        <label className="block text-sm font-medium text-gray-700">Peliharaan</label>
                                                     </div>
                                                 </div>
                                             </div>

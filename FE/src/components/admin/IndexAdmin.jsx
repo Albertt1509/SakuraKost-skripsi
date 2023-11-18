@@ -1,7 +1,19 @@
-import React from 'react';
+import { useContext } from 'react';
 import Clock from '../widget/Date';
+import { Navigate } from 'react-router-dom'
 import Gif from '../../assets/animation/Neco.gif'
+import UserContext from '../user/UserContext';
+
 export default function IndexAdmin() {
+    const { user, redy } = useContext(UserContext);
+
+    if (!redy) {
+        return '...Loading';
+    }
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+
     return (
         <>
             <div className="bg-gray-100 h-screen justify-center items-center w-full">

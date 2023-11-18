@@ -8,6 +8,7 @@ const kostSchema = new mongoose.Schema({
   moreinfo: String,
   capacity: Number,
   location: String,
+  kamar: Number,
   owner: String,
   phoneNumber: Number,
   price: Number,

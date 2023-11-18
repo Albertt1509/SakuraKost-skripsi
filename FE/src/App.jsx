@@ -8,6 +8,7 @@ import Register from './page/Register'
 import Account from './page/Account'
 import Content from './components/user/content/Content'
 import DetailKost from './components/user/content/DetailKost'
+import Booking from './components/user/Simpan/Booking'
 import { UserContextProvider } from './components/user/UserContext'
 //admin
 import IndexAdmin from './components/admin/IndexAdmin'
@@ -35,6 +36,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/account/:subpage?' element={<Account />} />
           <Route path='/account/:subpage/:action' element={<Account />} />
+          <Route path='/simpan' element={<Booking />} />
 
         </Route>
         <Route path='/admin' element={<AdminLay />} >

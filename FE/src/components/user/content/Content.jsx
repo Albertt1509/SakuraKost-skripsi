@@ -1,6 +1,5 @@
 import React from 'react';
 import KostList from './KostList'
-
 export default function Menu() {
 
     const containerStyle = {
@@ -22,7 +21,7 @@ export default function Menu() {
         <>
             <div style={containerStyle}>
                 <div style={topContainerStyle}></div>
-                <header className="search items-center justify-center   p-4 ">
+                <header className="search items-center justify-center p-4 ">
                     <div className="search bg-white p-4 rounded-md shadow-md w-50 relative z-10" style={{ marginTop: '20%' }}>
                         <div className=" flex gap-2">
                             <div className="flex flex-col w-full">

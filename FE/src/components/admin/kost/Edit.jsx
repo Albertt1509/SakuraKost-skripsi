@@ -77,7 +77,6 @@ export default function EditKost() {
                             <th className="border px-4 py-2">Pemilik</th>
                             <th className="border px-4 py-2">Lokasi</th>
                             <th className="border px-4 py-2">No Handphone</th>
-                            <th className="border px-4 py-2">Status</th>
                             <th className="border px-4 py-2">Action</th>
                         </tr>
                     </thead>
@@ -88,7 +87,7 @@ export default function EditKost() {
                                 <td className="border px-4 py-2">{kost.owner}</td>
                                 <td className="border px-4 py-2">{kost.location}</td>
                                 <td className="border px-4 py-2">{kost.phoneNumber}</td>
-                                <td className="border px-4 py-2"></td>
+
                                 <td className="border px-4 py-2 ">
                                     <div className="flex justify-center mx-auto items-center gap-2">
                                         <button onClick={() => openModal(kost)} className='update'>

@@ -16,6 +16,7 @@ export default function Kost() {
     const [description, setDescription] = useState('');
     const [moreinfo, setMoreInfo] = useState('');
     const [capacity, setCapacity] = useState('');
+    const [kamar, setKamar] = useState('');
     const [location, setLocation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [price, setPrice] = useState('');
@@ -61,6 +62,7 @@ export default function Kost() {
         formData.append('address', address);
         formData.append('description', description);
         formData.append('moreinfo', moreinfo);
+        formData.append('kamar', kamar);
         formData.append('capacity', capacity);
         formData.append('location', location);
         formData.append('phoneNumber', phoneNumber);
@@ -99,6 +101,7 @@ export default function Kost() {
                 setCapacity('');
                 setLocation('');
                 setOwner('');
+                setKamar('');
                 setPhoneNumber('');
                 setPrice('');
                 setPhotos(null);
@@ -205,9 +208,9 @@ export default function Kost() {
                         <h2 className="text-2xl font-bold">Jumlah Kamar</h2>
                         <input
                             type="text"
-                            placeholder="Jumlah Kamar belum dicoding"
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
+                            placeholder="Jumlah Kamar"
+                            value={kamar}
+                            onChange={(e) => setKamar(e.target.value)}
                         />
                     </div>
                     {/* Upload Image */}
