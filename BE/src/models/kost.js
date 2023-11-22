@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const kostSchema = new mongoose.Schema({
   title: String,
   address: String,
-  photos: [{ type: String }],
+  photos: [{ type: String, required: true }],
   description: String,
   moreinfo: String,
   capacity: Number,

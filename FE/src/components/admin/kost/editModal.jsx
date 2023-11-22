@@ -170,7 +170,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     type="text"
                                                     name="capacity"
                                                     value={editedKost.capacity}
-                                                    onChange={(e) => handlePhotoChange(e)}
+                                                    onChange={handleInputChange}
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />
                                             </div>

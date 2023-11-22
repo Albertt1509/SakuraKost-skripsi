@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from '../../../assets/polder/pxfuel2.jpg';
 import { FaFacebook } from 'react-icons/fa';
 import { BsInstagram } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { Location, Payment, Booking } from './jsonAnimation'
-import { Data, dummyData } from './Data'
 import { CiMusicNote1 } from "react-icons/ci";
 import Music from './music'
+import Data from './Data'
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-
+    const [kosts, setKosts] = useState([]);
     const playPauseHandler = () => {
         setIsPlaying(!isPlaying);
     };
@@ -20,19 +22,26 @@ const Home = () => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
         };
-
-        // Initial check
         handleResize();
-
-        // Event listener for window resize
         window.addEventListener('resize', handleResize);
-
-        // Cleanup the event listener
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/api/kost");
+                setKosts(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const showMoreLink = kosts.length > 3;
     return (
         <div className="relative w-full h-screen scroll-behavior-smooth">
             <div className="relative col-span-3">
@@ -83,7 +92,6 @@ const Home = () => {
                             <Location />
                         </div>
                     </div>
-
                     {/* Card 2 */}
                     <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm opacity-40 p-5 text-center">Pesan</p>
@@ -91,7 +99,6 @@ const Home = () => {
                             <Booking />
                         </div>
                     </div>
-
                     {/* Card 3 */}
                     <div className="bg-white p-4 rounded-lg">
                         <p className="text-sm opacity-40 p-5 text-center">Bayar</p>
@@ -100,30 +107,27 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
             <div className="bg-white opacity-80 w-full rounded-lg ">
                 <p className="flex justify-center text-red-600 item-center text-sm  p-5">Tunggu Apa Lagi</p>
                 <h1 className="flex justify-center text-4xl text-center mb-5 font-bold">Tertarik? Dapatkan Sekarang!!!</h1>
-                <div>
-                    {/* Gunakan komponen Data */}
-                    <div className="bg-white w-full p-4 rounded-lg ">
-                        <Data />
+                <div className="bg-white w-full p-4 rounded-lg ">
+                    <div className="flex justify-end mt-4">
+                        {showMoreLink && (
+                            <Link to="/content" className="text-red-500 hover:underline">
+                                Lihat Lebih Banyak
+                            </Link>
+                        )}
                     </div>
-                    {dummyData.map((item) => (
-                        <div key={item.id}>
-
-                        </div>
-                    ))}
+                    <Data />
                 </div>
             </div>
-
             {/* Footer Section */}
             <footer className="text-center p-4 bg-pink-400">
                 <div className="flex justify-center space-x-6">
                     {isMobile && (
                         <>
-                            <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">
+                            <div className="bg-pink-500 rounded-full p-0 flex items-center justify-center">
                                 <FaFacebook size={20} color="white" />
                             </div>
                             <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">

@@ -1,4 +1,4 @@
-const Kost = require("../models/kost"); // Pastikan Anda memiliki file kostModel.js yang Anda berikan di proyek Anda
+const Kost = require("../models/kost");
 const multer = require("multer");
 const path = require("path");
 const router = require("express").Router();
@@ -6,24 +6,15 @@ const fs = require("fs");
 // Konfigurasi Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/uploads/"); // Folder tempat gambar akan disimpan
+    cb(null, "./images"); // Folder tempat gambar akan disimpan
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     cb(null, Date.now() + ext); // Nama file akan menjadi timestamp unik
   },
 });
-const upload = multer({ storage: storage });
-
-// Rute GET untuk mengambil data Kost
-router.get("/kost", async (req, res) => {
-  try {
-    const kostData = await Kost.find(); // Mengambil semua data Kost dari database
-    res.json(kostData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Gagal mengambil data Kost." });
-  }
+const upload = multer({
+  storage: storage,
 });
 // Mengunggah gambar dan menyimpan data Kost ke database
 router.post("/kost", upload.array("photos", 5), async (req, res) => {
@@ -75,21 +66,6 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       energy,
       water,
     });
-
-    //delete data
-    const deleteDataKost = async (req, res) => {
-      try {
-        const { id } = req.params;
-        // Lakukan operasi penghapusan data Kost berdasarkan ID
-        // Contoh: Kost.findByIdAndRemove(id)
-        await Kost.findByIdAndRemove(id);
-        res.json({ message: "Data Kost berhasil dihapus." });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Gagal menghapus data Kost." });
-      }
-    };
-
     const savedKost = await newKost.save();
     res.json(savedKost);
   } catch (error) {
@@ -98,6 +74,56 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       .json({ error: "Terjadi kesalahan dalam menyimpan data Kost." });
   }
 });
+// Rute GET untuk mengambil data Kos
+router.get("/kost", async (req, res) => {
+  try {
+    const { search } = req.query;
+
+    let kostData;
+    if (search) {
+      kostData = await Kost.find({
+        owner: { $regex: new RegExp(search, "i") },
+      });
+    } else {
+      kostData = await Kost.find();
+    }
+
+    // Tambahkan URL lengkap gambar ke setiap objek Kost
+    const kostsWithImageUrls = kostData.map((kost) => ({
+      ...kost.toObject(),
+      photos: kost.photos.map((photo) => `${photo}`),
+    }));
+
+    res.json(kostsWithImageUrls);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Gagal mengambil data Kost." });
+  }
+});
+//get detail
+
+router.get("/api/kost/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const kostData = await Kost.findById(id);
+
+    if (!kostData) {
+      return res.status(404).json({ error: "Data Kost tidak ditemukan." });
+    }
+
+    const kostWithImageUrls = {
+      ...kostData.toObject(),
+      photos: kostData.photos.map((photo) => `${photo}`),
+    };
+
+    res.json(kostWithImageUrls);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Gagal mengambil data Kost." });
+  }
+});
+
 //upadate data
 router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
   try {
@@ -169,7 +195,6 @@ router.delete("/kost/:id", async (req, res) => {
   try {
     const { id } = req.params;
     // Lakukan operasi penghapusan data Kost berdasarkan ID
-    // Contoh: Kost.findByIdAndRemove(id)
     const deletedKost = await Kost.findByIdAndRemove(id);
 
     if (!deletedKost) {
@@ -178,7 +203,7 @@ router.delete("/kost/:id", async (req, res) => {
 
     // Hapus gambar dari direktori
     deletedKost.photos.forEach((photo) => {
-      const filePath = path.join("public/uploads/", photo);
+      const filePath = path.join("/images", photo);
       fs.unlinkSync(filePath);
     });
 

@@ -10,6 +10,7 @@ export default function EditKost() {
     const [selectedKost, setSelectedKost] = useState(null);
     const [isDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState(null);
+    const [searchKeyword, setSearchKeyword] = useState('');
 
     const openDeleteModal = (kost) => {
         setDeleteTarget(kost);
@@ -38,6 +39,9 @@ export default function EditKost() {
             });
     }, []);
 
+    const filteredKostData = kostData.filter((kost) =>
+        kost.owner.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
     return (
         <div className="bg-gray-100 h-screen w-full">
             <h1 className="font-bold text-4xl p-6">Lihat Kost</h1>
@@ -48,23 +52,25 @@ export default function EditKost() {
                             <Clock />
                         </div>
                         <div className="w-full md:w-1/4 p-4 flex items-center">
-                            <div className="py-2 px-1.5625rem flex items-center gap-4 w-full rounded border-solid">
-                                <input className="w-full" type="text" placeholder="Search..." />
+                            <div className="search py-2 px-1.5625rem flex items-center gap-4 w-full rounded border-solid">
+                                <input className="w-full" type="text" placeholder="Search..." value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
                                 <div className="relative">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-6"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                                        />
-                                    </svg>
+                                    <button onClick={() => console.log("Perform search")} className="w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-6">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-6"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                            />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +87,7 @@ export default function EditKost() {
                         </tr>
                     </thead>
                     <tbody>
-                        {kostData.map((kost, index) => (
+                        {filteredKostData.map((kost, index) => (
                             <tr key={index}>
                                 <td className="border px-2 py-2">{index + 1}</td>
                                 <td className="border px-4 py-2">{kost.owner}</td>

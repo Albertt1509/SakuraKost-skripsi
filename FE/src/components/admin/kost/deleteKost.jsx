@@ -18,6 +18,7 @@ export default function deleteKost({ isOpen, onClose, targetKost }) {
                 });
                 onClose();
 
+
             })
             .catch((error) => {
                 console.error("Error saat menghapus data", error);

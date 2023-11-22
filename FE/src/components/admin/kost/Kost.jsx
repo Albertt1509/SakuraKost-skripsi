@@ -37,11 +37,13 @@ export default function Kost() {
 
     // to image post
     const handleImageChange = (e) => {
-        const selectedFile = e.target.files[0];
-        setPhotos(selectedFile);
+        const selectedFiles = e.target.files;
+        setPhotos(selectedFiles);
 
-        const imageUrl = URL.createObjectURL(selectedFile);
-        setImagePreview(imageUrl);
+        const imagePreviews = Array.from(selectedFiles).map(file =>
+            URL.createObjectURL(file)
+        );
+        setImagePreview(imagePreviews);
     };
     // for data fill
     async function handleSubmit(ev) {
@@ -68,7 +70,6 @@ export default function Kost() {
         formData.append('phoneNumber', phoneNumber);
         formData.append('price', price);
         formData.append('owner', owner);
-        formData.append('photos', photos);
         formData.append('wifi', wifi ? '1' : '0');
         formData.append('parking', parking ? '1' : '0');
         formData.append('laundry', laundry ? '1' : '0');
@@ -79,6 +80,9 @@ export default function Kost() {
         formData.append('pet', pet ? '1' : '0');
         formData.append('energy', energy ? '1' : '0');
         formData.append('water', water ? '1' : '0');
+        for (let i = 0; i < photos.length; i++) {
+            formData.append('photos', photos[i]);
+        }
         try {
             const response = await axios.post('/api/kost', formData);
             if (response.status === 200 || response.status === 201) {
@@ -105,6 +109,7 @@ export default function Kost() {
                 setPhoneNumber('');
                 setPrice('');
                 setPhotos(null);
+                setImagePreview(null)
                 setWifi(false);
                 setParking(false);
                 setKitchen(false);
@@ -114,7 +119,7 @@ export default function Kost() {
                 setFullRoom(false);
                 setPet(false);
                 setEnergy(false);
-                kitchen(false);
+                setKitchen(false);
                 setWater(false);
 
             } else {
@@ -199,7 +204,7 @@ export default function Kost() {
                         <h2 className="text-2xl font-bold">Harga</h2>
                         <input
                             type="text"
-                            placeholder="Rp. xxx"
+                            placeholder="Rp. xxx /bulan"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
@@ -221,6 +226,7 @@ export default function Kost() {
                             name="photos"
                             className="w-full p-2 border mt-2 border-gray-300 rounded"
                             onChange={handleImageChange}
+                            multiple
                         />
                         {imagePreview && (
                             <img
@@ -275,7 +281,7 @@ export default function Kost() {
                                 checked={parking}
                                 onChange={(e) => setParking(e.target.checked)}
                             />
-                            <RiParkingLine className="w-6 h-6 mx-auto" LuParkingCircle />
+                            <RiParkingLine className="w-6 h-6 mx-auto" />
                             <span className='text-sm'>Area Parkir</span>
                         </label>
                         <label className='border border-lg shadow-sm bg-white w-full items-center text-center ' >

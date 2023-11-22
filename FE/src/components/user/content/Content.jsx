@@ -1,4 +1,3 @@
-import React from 'react';
 import KostList from './KostList'
 export default function Menu() {
 

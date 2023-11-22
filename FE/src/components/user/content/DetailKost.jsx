@@ -1,53 +1,83 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { dummyData } from './KostList';
+import axios from 'axios';
 import Galery from './Galeri';
 import Pembayaran from './Pembayaran';
+import IconsFitur from './Fitur'
 
 const DetailKost = () => {
     const { id } = useParams();
-    const kost = dummyData.find((item) => item.id === parseInt(id, 10));
+    const [kost, setKost] = useState(null);
+
+    useEffect(() => {
+        axios.get(`/api/kost/${id}`)
+            .then(response => {
+                setKost(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, [id]);
 
     if (!kost) {
-        return <div> Kost Tidak Ditemukan</div>;
+        return <div> Loading...</div>;
     }
-
     return (
         <>
             <div className='mt-[80px] p-6'>
                 <Galery />
-            </div >
+            </div>
             <div className="pt-3 p-6 relative">
                 <div className="font-bold text-2xl">
-                    <h1>Nama Pemilik Kost : mr. Subekti</h1>
+                    <h1>Pemilik Kost {kost.owner}</h1>
                 </div>
-                <div className="flex mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                    </svg>
-                    <h1>Alamat :{kost.alamat}</h1>
+                <div className="mt-5">
+                    <h1 className='font-bold text-2xl'>Alamat</h1>
+                    <div className="flex mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                        <h1> {kost.address}</h1>
+                    </div>
                 </div>
-                <div className="pt-8 font-bold text-2xl">
-                    <h1>Fasilitas Kost</h1>
+                <div className=" mt-5 ">
+                    <h1 className='font-bold text-2xl'>Deskripsi</h1>
+                    <div className="flex mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        <h1>{kost.description}</h1>
+                    </div>
                 </div>
-                <div className="flex gap-5">
-                    <h1>wifi</h1>
-                    <h1>wifi</h1>
-                    <h1>wifi</h1>
-                    <h1>wifi</h1>
-                    <h1>wifi</h1>
+                <div className=" mt-5 ">
+                    <h1 className='font-bold text-2xl'>Fasilitas</h1>
+                    <div className="flex flex-wrap gap-5 mt-4">
+                        {kost.wifi && IconsFitur.wifi}
+                        {kost.parking && IconsFitur.parking}
+                        {kost.laundry && IconsFitur.laundry}
+                        {kost.servant && IconsFitur.servant}
+                        {kost.free && IconsFitur.free}
+                        {kost.fullRoom && IconsFitur.fullRoom}
+                        {kost.pet && IconsFitur.pet}
+                        {kost.energy && IconsFitur.energy}
+                        {kost.water && IconsFitur.water}
+                    </div>
                 </div>
-                <div className="pt-8 font-bold text-2xl">
-                    <h1>Aturan Kost</h1>
+                <div className=" mt-5 ">
+                    <h1 className='font-bold text-2xl'>Aturan</h1>
+                    <div className="flex mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+                        <h1>{kost.moreinfo}</h1>
+                    </div>
                 </div>
-                <div className="flex gap-5">
-                    <h1>Tidak boleh membawa orang dalam</h1>
-                </div>
-                <div className="absolute top-0 right-0 mt-4">
+                <div className="lg:absolute bottom-0 left-0 w-full mb-4">
                     <Pembayaran />
                 </div>
             </div>
+
         </>
     );
 };
