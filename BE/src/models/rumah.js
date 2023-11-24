@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
 const rumahSchema = new mongoose.Schema({
-  name: String,
-  address: String,
-  photos: [{ type: String }],
-  location: String,
-  phoneNumber: Number,
+  user,
 });
 
 module.exports = mongoose.model("rumah", rumahSchema);

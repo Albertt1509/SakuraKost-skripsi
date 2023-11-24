@@ -1,39 +1,72 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import KostList from './KostList';
 
 export default function Menu() {
-    const [jenisKos, setJenisKos] = useState("");
+    const [jenisKos, setJenisKost] = useState("");
     const [hargaMin, setHargaMin] = useState("");
     const [hargaMax, setHargaMax] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
 
     const handleJenisKosChange = (event) => {
-        setJenisKos(event.target.value);
+        setJenisKost(event.target.value);
     };
 
     const handleHargaMinChange = (event) => {
-        const input = event.target.value;
-        const sanitizedInput = input.replace(/[^\d]/g, '');
-        const parsedInput = parseInt(sanitizedInput, 10);
-        setHargaMin(isNaN(parsedInput) ? 0 : parsedInput);
+        setHargaMin(event.target.value);
     };
 
     const handleHargaMaxChange = (event) => {
-        const input = event.target.value;
-        const sanitizedInput = input.replace(/[^\d]/g, '');
-        const parsedInput = parseInt(sanitizedInput, 10);
-        setHargaMax(isNaN(parsedInput) ? 0 : parsedInput);
+
+        setHargaMax(event.target.value);
     };
 
-    const handleCariClick = async () => {
+    const fetchData = async () => {
         try {
-            const response = await axios.get(`/api/kost?jenis=${jenisKos}&hargaMin=${hargaMin}&hargaMax=${hargaMax}`);
+            var apiUrl = "/api/kost";
+
+            if (jenisKos) {
+                apiUrl += `?jenis=${jenisKos}`;
+            }
+
+            if (hargaMin) {
+                apiUrl += apiUrl.includes("?") ? "&" : "?";
+                apiUrl += `hargaMin=${hargaMin}`;
+            }
+
+            if (hargaMax) {
+                apiUrl += apiUrl.includes("?") || hargaMin ? "&" : "?";
+                apiUrl += `hargaMax=${hargaMax}`;
+            }
+
+            const response = await axios.get(apiUrl);
             setSearchResults(response.data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
+
+    useEffect(() => {
+        const fetchDataAndPrices = async () => {
+            try {
+                const response = await axios.get('/api/kost');
+                setSearchResults(response.data);
+
+                const prices = response.data.map((kost) => kost.price);
+                setMinPrice(Math.min(...prices));
+                setMaxPrice(Math.max(...prices));
+
+                setHargaMin("");
+                setHargaMax("");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchDataAndPrices();
+    }, []);
 
     const containerStyle = {
         background: '#f472b6',
@@ -65,7 +98,7 @@ export default function Menu() {
                                     onChange={handleJenisKosChange}
                                     className="border text-gray-400 border-gray-300 bg-white rounded-md px-4 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
                                 >
-                                    <option value="-">Pilih Tipe Kost</option>
+                                    <option value="">Pilih Tipe Kost</option>
                                     <option value="Laki-Laki">Kost Laki Laki</option>
                                     <option value="Perempuan">Kost Perempuan</option>
                                     <option value="Campuran">Kost Campuran</option>
@@ -75,10 +108,10 @@ export default function Menu() {
                                 <h1 className="mb-1">Rentang Harga</h1>
                                 <input
                                     type="text"
-                                    value={hargaMin.toLocaleString('id-ID')}
+                                    value={hargaMin}
                                     onChange={handleHargaMinChange}
                                     className="border p-2 w-full"
-                                    placeholder="Rp. 550.000"
+                                    placeholder={`Rp. ${minPrice.toLocaleString('id-ID')}`}
                                 />
                             </div>
                             <div className="flex pt-[28px]">
@@ -87,14 +120,14 @@ export default function Menu() {
                             <div className="flex flex-col w-full pt-[28px]">
                                 <input
                                     type="text"
-                                    value={hargaMax.toLocaleString('id-ID')}
+                                    value={hargaMax}
                                     onChange={handleHargaMaxChange}
                                     className="border p-2 w-full"
-                                    placeholder="Rp. 2.550.000"
+                                    placeholder={`Rp. ${maxPrice.toLocaleString('id-ID')}`}
                                 />
                             </div>
                             <div className="flex pt-[30px] ">
-                                <button onClick={handleCariClick} className='bg-pink-500 p-3 w-[100px] h-[50px] rounded-lg text-white'> Cari</button>
+                                <button onClick={fetchData} className='bg-pink-500 p-3 w-[100px] h-[50px] rounded-lg text-white'> Cari</button>
                             </div>
                         </div>
                     </div>
