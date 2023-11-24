@@ -27,6 +27,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       capacity,
       owner,
       location,
+      jenis,
       kamar,
       phoneNumber,
       price,
@@ -50,6 +51,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       description,
       moreinfo,
       capacity,
+      jenis,
       kamar,
       owner,
       location,
@@ -77,23 +79,30 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
 // Rute GET untuk mengambil data Kos
 router.get("/kost", async (req, res) => {
   try {
-    const { search } = req.query;
-
-    let kostData;
+    const { search, jenis, hargaMin, hargaMax } = req.query;
+    let filter = {};
     if (search) {
-      kostData = await Kost.find({
-        owner: { $regex: new RegExp(search, "i") },
-      });
-    } else {
-      kostData = await Kost.find();
+      filter.owner = { $regex: new RegExp(search, "i") };
     }
+    if (jenis) {
+      filter.jenis = jenis;
+    }
+    if (hargaMin || hargaMax) {
+      filter.price = {};
+      if (hargaMin) {
+        filter.price.$gte = parseInt(hargaMin);
+      }
+      if (hargaMax) {
+        filter.price.$lte = parseInt(hargaMax);
+      }
+    }
+    const kostData = await Kost.find(filter);
 
     // Tambahkan URL lengkap gambar ke setiap objek Kost
     const kostsWithImageUrls = kostData.map((kost) => ({
       ...kost.toObject(),
       photos: kost.photos.map((photo) => `${photo}`),
     }));
-
     res.json(kostsWithImageUrls);
   } catch (error) {
     console.error(error);
@@ -101,7 +110,6 @@ router.get("/kost", async (req, res) => {
   }
 });
 //get detail
-
 router.get("/api/kost/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -123,7 +131,6 @@ router.get("/api/kost/:id", async (req, res) => {
     res.status(500).json({ error: "Gagal mengambil data Kost." });
   }
 });
-
 //upadate data
 router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
   try {
@@ -134,11 +141,12 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
       description,
       moreinfo,
       capacity,
-      kamar,
+      jenis,
       owner,
       location,
       phoneNumber,
       price,
+      kamar,
       wifi,
       parking,
       kitchen,
@@ -150,18 +158,32 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
       energy,
       water,
     } = req.body;
-    const photos = req.files.map((file) => file.filename);
+    const newPhotos = req.files.map((file) => file.filename);
+
+    // Dapatkan data Kost yang akan diperbarui
+    const kostToUpdate = await Kost.findById(id);
+
+    if (!kostToUpdate) {
+      return res.status(404).json({ error: "Data Kost tidak ditemukan." });
+    }
+
+    // Hapus gambar-gambar lama dari direktori
+    kostToUpdate.photos.forEach((photo) => {
+      const filePath = path.join("./images", photo);
+      fs.unlinkSync(filePath);
+    });
 
     // Buat objek yang berisi data yang akan diperbarui
     const updatedKost = {
       title,
       address,
-      photos,
-      kamar,
+      photos: newPhotos,
+      jenis,
       description,
       moreinfo,
       capacity,
       owner,
+      kamar,
       location,
       phoneNumber,
       price,
@@ -179,10 +201,6 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
 
     // Lakukan operasi pembaruan data Kost berdasarkan ID
     const result = await Kost.findByIdAndUpdate(id, updatedKost, { new: true });
-
-    if (!result) {
-      return res.status(404).json({ error: "Data Kost tidak ditemukan." });
-    }
 
     res.json(result);
   } catch (error) {
@@ -203,7 +221,7 @@ router.delete("/kost/:id", async (req, res) => {
 
     // Hapus gambar dari direktori
     deletedKost.photos.forEach((photo) => {
-      const filePath = path.join("/images", photo);
+      const filePath = path.join("./images", photo);
       fs.unlinkSync(filePath);
     });
 

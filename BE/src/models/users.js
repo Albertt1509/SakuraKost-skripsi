@@ -16,7 +16,7 @@ const userSchema = new Schema({
 
   alamat: String,
   nohp: {
-    type: Number,
+    type: String,
     unique: true,
   },
   gender: {

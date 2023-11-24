@@ -10,8 +10,12 @@ const kostSchema = new mongoose.Schema({
   location: String,
   kamar: Number,
   owner: String,
-  phoneNumber: Number,
+  phoneNumber: String,
   price: Number,
+  jenis: {
+    type: String,
+    enum: ["Laki-Laki", "Perempuan", "Campuran"],
+  },
   wifi: Boolean,
   parking: Boolean,
   kitchen: Boolean,

@@ -16,6 +16,7 @@ export default function Kost() {
     const [description, setDescription] = useState('');
     const [moreinfo, setMoreInfo] = useState('');
     const [capacity, setCapacity] = useState('');
+    const [jenis, setJenis] = useState('');
     const [kamar, setKamar] = useState('');
     const [location, setLocation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -64,6 +65,7 @@ export default function Kost() {
         formData.append('address', address);
         formData.append('description', description);
         formData.append('moreinfo', moreinfo);
+        formData.append('jenis', jenis);
         formData.append('kamar', kamar);
         formData.append('capacity', capacity);
         formData.append('location', location);
@@ -106,6 +108,7 @@ export default function Kost() {
                 setLocation('');
                 setOwner('');
                 setKamar('');
+                setJenis('');
                 setPhoneNumber('');
                 setPrice('');
                 setPhotos(null);
@@ -217,6 +220,20 @@ export default function Kost() {
                             value={kamar}
                             onChange={(e) => setKamar(e.target.value)}
                         />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Tipe Kost</h2>
+                        <select
+                            value={jenis}
+                            name='jenis'
+                            onChange={(ev) => setJenis(ev.target.value)}
+                            className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                        >
+                            <option value="">Pilih Kost</option>
+                            <option value="Laki-Laki">Kost Laki-laki</option>
+                            <option value="Perempuan">Kost Perempuan</option>
+                            <option value="Campuran">Kost Campuran</option>
+                        </select>
                     </div>
                     {/* Upload Image */}
                     <div>

@@ -60,6 +60,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 capacity: '',
                 owner: '',
                 kamar: '',
+                jenis: '',
                 price: '',
                 phoneNumber: '',
                 description: '',
@@ -213,6 +214,20 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     onChange={handleInputChange}
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />
+                                            </div>
+                                            <div className='mb-2'>
+                                                <h2 className="block text-sm font-medium text-gray-700">Tipe Kost</h2>
+                                                <select
+                                                    value={editedKost.jenis}
+                                                    name='jenis'
+                                                    onChange={handleInputChange}
+                                                    className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                                                >
+                                                    <option value="">Pilih Kost</option>
+                                                    <option value="Laki-Laki">Kost Laki-laki</option>
+                                                    <option value="Perempuan">Kost Perempuan</option>
+                                                    <option value="Campuran">Kost Campuran</option>
+                                                </select>
                                             </div>
                                             <div className="mb-2">
                                                 <label className="block text-sm font-medium text-gray-700">Deskripsi:</label>
