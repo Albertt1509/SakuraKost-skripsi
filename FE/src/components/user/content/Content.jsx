@@ -1,12 +1,12 @@
-import KostList from './KostList';
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import KostList from './KostList';
 
 export default function Menu() {
-    const [jenisKos, setJenisKos] = useState("Laki-Laki");
+    const [jenisKos, setJenisKos] = useState("");
     const [hargaMin, setHargaMin] = useState("");
     const [hargaMax, setHargaMax] = useState("");
-    const [kostData, setKostData] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     const handleJenisKosChange = (event) => {
         setJenisKos(event.target.value);
@@ -24,16 +24,16 @@ export default function Menu() {
         const sanitizedInput = input.replace(/[^\d]/g, '');
         const parsedInput = parseInt(sanitizedInput, 10);
         setHargaMax(isNaN(parsedInput) ? 0 : parsedInput);
-    }
+    };
+
     const handleCariClick = async () => {
         try {
             const response = await axios.get(`/api/kost?jenis=${jenisKos}&hargaMin=${hargaMin}&hargaMax=${hargaMax}`);
-            setKostData(response.data);
+            setSearchResults(response.data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-
 
     const containerStyle = {
         background: '#f472b6',
@@ -65,6 +65,7 @@ export default function Menu() {
                                     onChange={handleJenisKosChange}
                                     className="border text-gray-400 border-gray-300 bg-white rounded-md px-4 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
                                 >
+                                    <option value="-">Pilih Tipe Kost</option>
                                     <option value="Laki-Laki">Kost Laki Laki</option>
                                     <option value="Perempuan">Kost Perempuan</option>
                                     <option value="Campuran">Kost Campuran</option>
@@ -72,7 +73,6 @@ export default function Menu() {
                             </div>
                             <div className="flex flex-col w-full">
                                 <h1 className="mb-1">Rentang Harga</h1>
-
                                 <input
                                     type="text"
                                     value={hargaMin.toLocaleString('id-ID')}
@@ -101,7 +101,7 @@ export default function Menu() {
                 </header>
             </div>
             <div className="p-6 mt-8 flex flex-row">
-                <KostList kostData={kostData} />
+                <KostList jenisKos={jenisKos} kostData={searchResults} />
             </div>
         </>
     );
