@@ -10,6 +10,7 @@ const kostSchema = new Schema({
   location: String,
   kamar: Number,
   owner: String,
+  rekening: String,
   phoneNumber: String,
   price: Number,
   jenis: {

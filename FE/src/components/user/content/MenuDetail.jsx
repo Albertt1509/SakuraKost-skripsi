@@ -13,10 +13,13 @@ export default function MenuDetail() {
     const [simpan, setSimpan] = useState(false);
     const [harga, setHarga] = useState(0);
     const [navigate, setNavigate] = useState(false);
+    const [tanggalPemesanan, setTanggalPemesanan] = useState("");
 
     const UntukHarga = () => {
         // Logika perhitungan harga sesuai durasi
         switch (durasi) {
+            case '1bulan':
+                return kost.price * 1;
             case '3bulan':
                 return kost.price * 3;
             case '6bulan':
@@ -66,6 +69,7 @@ export default function MenuDetail() {
     const handleSaveClick = async () => {
         setSimpan(true);
         try {
+
             await axios.post(`/user/${user._id}/favorites/${id}`);
             toast.success('Disimpan di Favorite', {
                 position: 'top-right',
@@ -96,7 +100,7 @@ export default function MenuDetail() {
         }
     };
     if (navigate) {
-        return <Navigate to={`/content/${id}/pembayaran`} />;
+        return <Navigate to={`/content/${id}/pembayaran`} state={{ tanggalPemesanan, durasi, harga }} />;
     }
 
     return (
@@ -109,6 +113,7 @@ export default function MenuDetail() {
                         <h2 className="text-sm">Tanggal Pemesanan</h2>
                         <input
                             type="date"
+                            onChange={(e) => setTanggalPemesanan(e.target.value)}
                             className="w-full p-3 border border-gray-300 rounded"
                         />
                         <h2 className="text-sm mt-3">Durasi</h2>
@@ -117,7 +122,8 @@ export default function MenuDetail() {
                             onChange={(ev) => setDurasi(ev.target.value)}
                             className="border text-gray-400 border-gray-300 bg-white rounded-md px-4 py-3 mt-2 mb-2 w-full focus:outline-none focus:border-pink-500"
                         >
-                            <option value="bulan">Per Bulan</option>
+                            <option value="bulan">Pilih Durasi</option>
+                            <option value="1bulan">Per Bulan</option>
                             <option value="3bulan">Per 3 Bulan</option>
                             <option value="6bulan">Per 6 Bulan</option>
                             <option value="1tahun">Per Tahun</option>

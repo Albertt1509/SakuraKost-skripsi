@@ -22,6 +22,7 @@ export default function Kost() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [price, setPrice] = useState('');
     const [owner, setOwner] = useState('');
+    const [rekening, setRekening] = useState('');
     const [photos, setPhotos] = useState(null);
     const [wifi, setWifi] = useState(false);
     const [parking, setParking] = useState(false);
@@ -72,6 +73,7 @@ export default function Kost() {
         formData.append('phoneNumber', phoneNumber);
         formData.append('price', price);
         formData.append('owner', owner);
+        formData.append('rekening', rekening);
         formData.append('wifi', wifi ? '1' : '0');
         formData.append('parking', parking ? '1' : '0');
         formData.append('laundry', laundry ? '1' : '0');
@@ -107,6 +109,7 @@ export default function Kost() {
                 setCapacity('');
                 setLocation('');
                 setOwner('');
+                setRekening('');
                 setKamar('');
                 setJenis('');
                 setPhoneNumber('');
@@ -219,6 +222,15 @@ export default function Kost() {
                             placeholder="Jumlah Kamar"
                             value={kamar}
                             onChange={(e) => setKamar(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Nomor Rekening</h2>
+                        <input
+                            type="text"
+                            placeholder=" nomor rekening anda"
+                            value={rekening}
+                            onChange={(e) => setRekening(e.target.value)}
                         />
                     </div>
                     <div>

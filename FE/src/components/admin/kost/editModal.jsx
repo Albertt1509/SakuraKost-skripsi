@@ -62,6 +62,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 kamar: '',
                 jenis: '',
                 price: '',
+                rekening: '',
                 phoneNumber: '',
                 description: '',
                 moreinfo: '',
@@ -201,6 +202,16 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     type="text"
                                                     name="kamar"
                                                     value={editedKost.kamar}
+                                                    onChange={handleInputChange}
+                                                    className="w-full p-2 border border-gray-300 rounded"
+                                                />
+                                            </div>
+                                            <div className="mb-2">
+                                                <label className="block text-sm font-medium text-gray-700">Nomor Rekening:</label>
+                                                <input
+                                                    type="text"
+                                                    name="rekening"
+                                                    value={editedKost.rekening}
                                                     onChange={handleInputChange}
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />
