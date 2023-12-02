@@ -1,10 +1,49 @@
-Phelia Kost
+# Sakura Kost
 
-sebuah program website booking kost yang menggunakan MERN sebagai komponen pembuatannya,
+Sakura Kost adalah aplikasi web untuk pemesanan akomodasi, khususnya dirancang untuk penyewaan kamar kost. Dibangun menggunakan tumpukan MERN (MongoDB, Express.js, React.js, Node.js).
 
-jika inging menggunakan kode ini boleh saja, langkah langkah yang harus diperisapkan
+## Memulai
 
-1. lakukan colen dengan menggunakan git clone (https://github.com/Albertt1509/phelia-kost-skripsi)
-2. masuk ke dalam folder
-3. jika masuk folder FE yang perlu dilakukan pertama kali adalah dengan melakukan npm install kemudian npm run dev
-4. jika masuk folder BE yang perlu dilakukan pertama kali adalah dengan melakukan node install kemudian npm start untuk menjalankan api
+Untuk menggunakan basis kode ini, ikuti langkah-langkah berikut:
+
+### 1. Clone Repositori
+
+```bash
+git clone https://github.com/Albertt1509/SakuraKost-skripsi.git
+
+Masuk ke Folder Frontend
+
+bash
+
+cd SakuraKost-skripsi/frontend
+
+Install Dependencies
+
+bash
+
+npm install
+
+Jalankan Server Pengembangan
+
+bash
+
+npm run dev
+
+
+Masuk ke Folder Frontend
+
+bash
+
+cd SakuraKost-skripsi/frontend
+
+Install Dependencies
+
+bash
+
+npm install
+
+Jalankan Server Pengembangan
+
+bash
+
+npm run dev
