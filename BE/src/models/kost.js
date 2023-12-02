@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const kostSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const kostSchema = new Schema({
   title: String,
   address: String,
   photos: [{ type: String, required: true }],
@@ -16,6 +16,12 @@ const kostSchema = new mongoose.Schema({
     type: String,
     enum: ["Laki-Laki", "Perempuan", "Campuran"],
   },
+  savedBy: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
   wifi: Boolean,
   parking: Boolean,
   kitchen: Boolean,

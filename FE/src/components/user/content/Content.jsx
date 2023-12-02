@@ -22,7 +22,7 @@ export default function Menu() {
 
         setHargaMax(event.target.value);
     };
-
+    //get data min and max price
     const fetchData = async () => {
         try {
             var apiUrl = "/api/kost";
