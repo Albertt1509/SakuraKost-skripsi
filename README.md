@@ -1,6 +1,6 @@
-# Phelia Kost
+# Sakura Kost
 
-Phelia Kost adalah aplikasi web untuk pemesanan akomodasi, khususnya dirancang untuk penyewaan kamar kost. Dibangun menggunakan tumpukan MERN (MongoDB, Express.js, React.js, Node.js).
+Sakura Kost adalah aplikasi web untuk pemesanan akomodasi, khususnya dirancang untuk penyewaan kamar kost. Dibangun menggunakan tumpukan MERN (MongoDB, Express.js, React.js, Node.js).
 
 ## Memulai
 
