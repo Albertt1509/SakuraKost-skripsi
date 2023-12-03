@@ -3,19 +3,22 @@ const multer = require("multer");
 const path = require("path");
 const router = require("express").Router();
 const fs = require("fs");
+
 // Konfigurasi Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./images"); // Folder tempat gambar akan disimpan
   },
   filename: (req, file, cb) => {
+    // Menghasilkan timestamp saat ini dalam milidetik sebagai bagian dari nama file
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const ext = path.extname(file.originalname);
-    cb(null, Date.now() + ext); // Nama file akan menjadi timestamp unik
+    // Menggabungkan semua elemen untuk membentuk nama file yang unik
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
   },
 });
-const upload = multer({
-  storage: storage,
-});
+
+const upload = multer({ storage: storage });
 // Mengunggah gambar dan menyimpan data Kost ke database
 router.post("/kost", upload.array("photos", 5), async (req, res) => {
   try {
@@ -132,8 +135,7 @@ router.get("/api/kost/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Gagal mengambil data Kost." });
   }
-});
-//upadate data
+}); //update data
 router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
   try {
     const { id } = req.params; // Ambil ID dari parameter rute
@@ -169,13 +171,6 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
     if (!kostToUpdate) {
       return res.status(404).json({ error: "Data Kost tidak ditemukan." });
     }
-
-    // Hapus gambar-gambar lama dari direktori
-    kostToUpdate.photos.forEach((photo) => {
-      const filePath = path.join("./images", photo);
-      fs.unlinkSync(filePath);
-    });
-
     // Buat objek yang berisi data yang akan diperbarui
     const updatedKost = {
       title,
@@ -205,6 +200,12 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
 
     // Lakukan operasi pembaruan data Kost berdasarkan ID
     const result = await Kost.findByIdAndUpdate(id, updatedKost, { new: true });
+
+    // Hapus gambar-gambar lama dari direktori setelah pembaruan berhasil
+    kostToUpdate.photos.forEach((photo) => {
+      const filePath = path.join("./images", photo);
+      fs.unlinkSync(filePath);
+    });
 
     res.json(result);
   } catch (error) {
