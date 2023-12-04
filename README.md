@@ -1,4 +1,4 @@
-## Sakura Kost 🌸🌸🌸
+# Sakura Kost 🌸🌸🌸
 
 Sakura Kost adalah aplikasi web untuk pemesanan akomodasi, khususnya dirancang untuk penyewaan kamar kost. Dibangun menggunakan tumpukan MERN (MongoDB, Express.js, React.js, Node.js).
 
@@ -50,7 +50,7 @@ A: simple!!!!! because of her
 <img width="300" align="center"  src="https://ogiuemaniax.files.wordpress.com/2017/06/katoumegumi.jpg">
 
 <br/>
-### Kalau pengen lanjutin project ini boleh banget
+# Kalau pengen lanjutin project ini boleh banget
 
 
 
