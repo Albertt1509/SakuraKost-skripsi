@@ -36,15 +36,21 @@ npm start
 
 ### Question
 Q: kok pakai MERN stack?
+<br/>
 A: gk tau, pengen aja! soalnya belum pernah pake mern jadi buat latihan dijadiin skripsi 
 
 Q: kok paymentnya gk pake pihak ke 3?
+<br/>
 A: gk ada duid buat sewa
 
 Q: kok namanya sakura?
+<br/>
 A: simple!!!!! because of her
 <br/>
 <img width="300" align="center"  src="https://ogiuemaniax.files.wordpress.com/2017/06/katoumegumi.jpg">
+
+<br/>
+### Kalau pengen lanjutin project ini boleh banget
 
 
 
