@@ -41,7 +41,7 @@ A: gk tau, pengen aja! soalnya belum pernah pake mern jadi buat latihan dijadiin
 
 Q: kok paymentnya gk pake pihak ke 3?
 <br/>
-A: gk ada duid buat sewa
+A: gk ada duid buat sewa, kecuali didanain hehe
 
 Q: kok namanya sakura?
 <br/>
