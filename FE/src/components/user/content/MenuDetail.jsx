@@ -86,7 +86,17 @@ export default function MenuDetail() {
 
     const handleBayarClick = () => {
         if (user) {
-            setNavigate(true);
+            if (tanggalPemesanan && durasi) {
+                setNavigate(true);
+            } else {
+                toast.error('Mohon isi tanggal pemesanan dan pilih durasi terlebih dahulu', {
+                    position: 'top-right',
+                    style: {
+                        whiteSpace: '',
+                    },
+                    autoClose: 3000,
+                });
+            }
         } else {
             setSimpan(false);
             toast.error('Silakan login terlebih dahulu ', {

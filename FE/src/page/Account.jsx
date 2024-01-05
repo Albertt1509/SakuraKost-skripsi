@@ -53,10 +53,7 @@ export default function AccountPage() {
                                 <span className="font-semibold mr-2 w-[100px]">No HP</span>
                                 <span className="text-gray-700">: {user.nohp}</span>
                             </div>
-                            <div className="flex items-center mb-2">
-                                <span className="font-semibold mr-2 text-sm w-[100px]">Ingin Bergabug?</span>
-                                <span className="text-gray-700">: request to join as a admin</span>
-                            </div>
+
                         </div>
                         <div className="absolute bottom-0 right-0 mb-1 mr-4">
                             <button onClick={logout} className="bg-pink-400 text-white py-2 px-4 rounded">

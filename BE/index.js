@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const authRoute = require("./src/routes/auth");
 const kostRoute = require("./src/routes/kostAdd");
 const favorite = require("./src/routes/favorite");
+const pemesanan = require("./src/routes/pemesanan");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -31,6 +32,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/", authRoute);
 app.use("/", kostRoute);
 app.use("/", favorite);
+app.use("/", pemesanan);
 
 // app.get("/test", (req, res) => {
 //   res.json("test ok");
