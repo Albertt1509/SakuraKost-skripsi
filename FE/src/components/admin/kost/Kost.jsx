@@ -89,7 +89,7 @@ export default function Kost() {
         }
         try {
             const response = await axios.post('/api/kost', formData);
-            if (response.status === 200 || response.status === 201) {
+            if (response.status === 200) {
                 toast.success('Data Berhasil disimpan', {
                     position: 'top-right',
 

@@ -24,10 +24,10 @@ mongoose
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
-
 app.use(cookieParser());
 //user connected
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/foto", express.static(path.join(__dirname, "foto")));
 
 app.use("/", authRoute);
 app.use("/", kostRoute);

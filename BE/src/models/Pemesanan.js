@@ -14,6 +14,8 @@ const pemesananSchema = new Schema({
     type: String,
     enum: ["Bayar Di Tempat", "Transfer Bank"],
   },
+  selpi: [{ type: String, required: true }],
+  transfer: [{ type: String, required: true }],
 });
 
 const Pemesanan = mongoose.model("Pemesanan", pemesananSchema);

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Modal = ({ visible, onConfirm, onCancel }) => {
     if (!visible) {
         return null;

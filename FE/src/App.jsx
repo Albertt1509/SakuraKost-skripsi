@@ -10,7 +10,7 @@ import Content from './components/user/content/Content'
 import DetailKost from './components/user/content/DetailKost'
 import Favorite from './components/user/Simpan/Favorite'
 import Pembayaran from './components/user/pembayaran/Pay'
-
+import Status from './components/user/status/Status'
 import { UserContextProvider } from './components/user/UserContext'
 //admin
 import IndexAdmin from './components/admin/IndexAdmin'
@@ -37,6 +37,7 @@ function App() {
           <Route path='/account/:subpage?' element={<Account />} />
           <Route path='/account/:subpage/:action' element={<Account />} />
           <Route path='/favorite' element={<Favorite />} />
+          <Route path='/status' element={<Status />} />
           <Route path='/content' element={<Content />} />
           <Route path='/content/:id' element={<DetailKost />} />
           <Route path='/content/:id/pembayaran' element={<Pembayaran />} />

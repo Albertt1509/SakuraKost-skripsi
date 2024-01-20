@@ -145,7 +145,7 @@ const Home = () => {
                         </>
                     )}
                     <div className="hidden lg:flex">
-                        <p>&copy; 2023 Sakura Kost.🌸</p>
+                        <p>&copy; 2024 Sakura Kost.🌸</p>
                     </div>
                 </div>
             </footer>
