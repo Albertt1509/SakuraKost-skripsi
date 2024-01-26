@@ -57,10 +57,11 @@ const KopiButton = ({ textToCopy, onCopy, onButtonClick }) => {
         </button>
     );
 };
-
 export default function Pembayaran() {
     const { id } = useParams();
-    const [kost, setKost] = useState([]);
+    const [title, setTitle] = useState('');
+    const [kost, setKost] = useState('');
+    const [name, setName] = useState('')
     const location = useLocation();
     const [jenisPembayaran, setJenisPembayaran] = useState('');
     const [tanggalPemesanan, setTanggalPemesanan] = useState("");
@@ -80,8 +81,24 @@ export default function Pembayaran() {
     }, [location.state]);
 
     useEffect(() => {
+        axios.get(`/api/profile/`).then((response) => {
+            setName(response.data.name);
+        }).catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+    }, []);
+
+    useEffect(() => {
         axios.get(`/api/kost/${id}`).then((response) => {
             setKost(response.data);
+        }).catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+    }, [id]);
+
+    useEffect(() => {
+        axios.get(`/api/kost/${id}`).then((response) => {
+            setTitle(response.data.title);
         }).catch((error) => {
             console.error('Error fetching data:', error);
         });
@@ -123,7 +140,7 @@ export default function Pembayaran() {
     };
     const handleBayarClick = async (e) => {
         e.preventDefault();
-        if (jenisPembayaran && tanggalPemesanan && durasi && harga && !paymentClicked) {
+        if (title && name && jenisPembayaran && tanggalPemesanan && durasi && harga && !paymentClicked) {
             setModal(true);
         } else {
             console.error('Incomplete payment data or already clicked. Please fill in all required fields.');
@@ -142,6 +159,8 @@ export default function Pembayaran() {
     const handleKonfirmasiPembayaran = async () => {
         try {
             const formData = new FormData();
+            formData.append('title', title);
+            formData.append('name', name);
             formData.append('jenisPembayaran', jenisPembayaran);
             formData.append('tanggalPemesanan', tanggalPemesanan);
             formData.append('durasi', durasi);
@@ -207,7 +226,7 @@ export default function Pembayaran() {
                             <div className="">
                                 <h1 className="text-2xl font-bold">Kost Pesanan Anda</h1>
                                 <div className="flex">
-                                    <h1 className="text-sm">{kost.title}</h1>
+                                    <h1 className="text-sm">{title}</h1>
                                 </div>
                             </div>
                             <div className="mt-5">
@@ -226,6 +245,12 @@ export default function Pembayaran() {
                                 <h1 className="text-2xl font-bold">Total Harga</h1>
                                 <div className="flex">
                                     <h1 className="text-sm ">{formatNominal(harga)}</h1>
+                                </div>
+                            </div>
+                            <div className="mt-5">
+                                <h1 className="text-2xl font-bold">Nama Pembeli</h1>
+                                <div className="flex">
+                                    <h1 className="text-sm ">{name}</h1>
                                 </div>
                             </div>
                         </div>

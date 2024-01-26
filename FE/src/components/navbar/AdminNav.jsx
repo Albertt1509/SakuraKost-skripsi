@@ -37,7 +37,7 @@ export default function AdminPage() {
             <div className="bg-pink-600 p-4 shadow-lg text-white flex justify-between items-center">
                 {/* Logo */}
                 <div className="logo">
-                    <Link to={'/admin'} className="text-4xl font-black">Emu</Link>
+                    <Link to={'/admin'} className="text-4xl font-black">Sakura</Link>
                 </div>
                 {/* Hamburger Menu Button (visible in small screens) */}
                 <div className="sm:hidden">

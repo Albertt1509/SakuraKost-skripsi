@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const pemesananSchema = new Schema({
+  title: {
+    type: String,
+  },
   tanggalPemesanan: {
     type: String,
   },
@@ -9,6 +12,13 @@ const pemesananSchema = new Schema({
   },
   harga: {
     type: Number,
+  },
+  name: {
+    type: String,
+  },
+  status: {
+    type: String,
+    default: 'Sedang Di Proses'
   },
   jenisPembayaran: {
     type: String,

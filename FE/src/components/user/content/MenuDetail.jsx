@@ -133,10 +133,10 @@ export default function MenuDetail() {
                             className="border text-gray-400 border-gray-300 bg-white rounded-md px-4 py-3 mt-2 mb-2 w-full focus:outline-none focus:border-pink-500"
                         >
                             <option value="" disabled selected></option>
-                            <option value="1bulan">Per Bulan</option>
+                            <option value="1bulan">Per 1 Bulan</option>
                             <option value="3bulan">Per 3 Bulan</option>
                             <option value="6bulan">Per 6 Bulan</option>
-                            <option value="1tahun">Per Tahun</option>
+                            <option value="1tahun">Per 1 Tahun</option>
                         </select>
                     </div>
                     <div className="flex justify-center items-center mb-9">

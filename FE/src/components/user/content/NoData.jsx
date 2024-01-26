@@ -7,7 +7,7 @@ const NoDataNotification = () => (
             alt="Not Available GIF"
             className="w-40 h-40"
         />
-        <p className="text-red-500 font-bold text-lg mb-4">Kost tidak tersedia</p>
+        <p className="text-red-500 font-bold text-lg mb-4">Kos tidak tersedia</p>
     </div>
 );
 export default NoDataNotification;

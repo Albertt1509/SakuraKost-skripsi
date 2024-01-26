@@ -43,7 +43,7 @@ export default function Navbar() {
                     />
 
                     <Link to={'/'} className="flex items-center gap-1">
-                        <span className="font-bold">Sakura Kost</span>
+                        <span className="font-bold">Sakura Kos</span>
                     </Link>
                 </div>
                 {/* menu (visible on sm screen) */}

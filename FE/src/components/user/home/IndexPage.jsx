@@ -53,7 +53,7 @@ const Home = () => {
                 <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white to-transparent"></div>
                 {/* Teks h1 di tengah atas */}
                 <h5 className="sakura absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-pink-500">
-                    Sakura Kost
+                    Sakura Kos
                 </h5>
             </div>
 

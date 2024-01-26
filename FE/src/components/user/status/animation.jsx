@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
-import lottie from 'lottie-web';
-import locationAnimation from '../../../assets/animation/location.json'; // Ganti dengan path yang sesuai
-import paymentAnimation from '../../../assets/animation/payment.json'; // Ganti dengan path yang sesuai
-import bookingAnimation from '../../../assets/animation/booking.json'; // Ganti dengan path yang sesuai
+import { useEffect, useRef } from "react";
+import lottie from "lottie-web";
+import SuksesAnimation from '../../../assets/animation/sukses.json';
+import WaktuAnimation from '../../../assets/animation/waiting.json'
+import BatalAnimation from '../../../assets/animation/batal.json'
 
-export const Location = () => {
+export const Sukses = () => {
     const animationContainer = useRef(null);
 
     useEffect(() => {
         const anim = lottie.loadAnimation({
             container: animationContainer.current,
-            animationData: locationAnimation,
+            animationData: SuksesAnimation,
             renderer: 'svg',
             loop: true,
             autoplay: true,
@@ -24,37 +24,15 @@ export const Location = () => {
     return (
         <div ref={animationContainer} style={{ width: '60%', height: '50%' }}></div>
     );
-};
-
-export const Payment = () => {
-    const animationContainer = useRef(null);
-
-    useEffect(() => {
-        const anim = lottie.loadAnimation({
-            container: animationContainer.current,
-            animationData: paymentAnimation,
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-        });
-
-        return () => {
-            anim.destroy();
-        };
-    }, []);
-
-    return (
-        <div ref={animationContainer} style={{ width: '40%', height: '20%' }}></div>
-    );
 }
 
-export const Booking = () => {
+export const Waktu = () => {
     const animationContainer = useRef(null);
 
     useEffect(() => {
         const anim = lottie.loadAnimation({
             container: animationContainer.current,
-            animationData: bookingAnimation,
+            animationData: WaktuAnimation,
             renderer: 'svg',
             loop: true,
             autoplay: true,
@@ -66,6 +44,27 @@ export const Booking = () => {
     }, []);
 
     return (
-        <div ref={animationContainer} style={{ width: '80%', height: '50%' }}></div>
+        <div ref={animationContainer} style={{ width: '60%', height: '50%' }}></div>
     );
-};
+}
+export const BatalAnima = () => {
+    const animationContainer = useRef(null);
+
+    useEffect(() => {
+        const anim = lottie.loadAnimation({
+            container: animationContainer.current,
+            animationData: BatalAnimation,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+        });
+
+        return () => {
+            anim.destroy();
+        };
+    }, []);
+
+    return (
+        <div ref={animationContainer} style={{ width: '60%', height: '50%' }}></div>
+    );
+}
