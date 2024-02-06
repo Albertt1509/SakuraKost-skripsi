@@ -39,9 +39,9 @@ app.use("/", pemesanan);
 app.use("/", selesai);
 app.use("/", batal);
 
-// app.get("/test", (req, res) => {
-//   res.json("test ok");
-// });
+app.get("/", (req, res) => {
+  res.json("🦄🌈💰💸💳");
+});
 
 app.listen(4000, () => {
   console.log("Connect on port 4000");
