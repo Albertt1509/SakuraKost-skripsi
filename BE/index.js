@@ -1,12 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const authRoute = require("./src/routes/auth");
-const kostRoute = require("./src/routes/kostAdd");
-const favorite = require("./src/routes/favorite");
-const pemesanan = require("./src/routes/pemesanan");
-const selesai = require("./src/routes/selesai");
-const batal = require("./src/routes/batal");
+const routes = require('./src/routes/route.js')
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -16,7 +11,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
+    origin: [],
   })
 );
 mongoose
@@ -31,13 +26,7 @@ app.use(cookieParser());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/foto", express.static(path.join(__dirname, "foto")));
 
-
-app.use("/", authRoute);
-app.use("/", kostRoute);
-app.use("/", favorite);
-app.use("/", pemesanan);
-app.use("/", selesai);
-app.use("/", batal);
+app.use("/", routes);
 
 app.get("/", (req, res) => {
   res.json("🦄🌈💰💸💳");
