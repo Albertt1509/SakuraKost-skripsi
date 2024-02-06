@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from './ModalImg'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Product = () => {
     const [batal, setBatal] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +20,19 @@ const Product = () => {
         fetchData();
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/api/batal/${id}`);
+            // Refresh data after deletion
+            const response = await axios.get('/api/batal');
+            setBatal(response.data);
+            console.log('Data successfully deleted');
+            toast.success('Pemesanan berhasil dihapus!');
+        } catch (error) {
+            console.error('Error deleting cancellation data:', error);
+            toast.error('Terjadi kesalahan saat menghapus pemesanan.');
+        }
+    };
     const formatNominal = (value) => {
         const floatValue = parseFloat(value);
         return new Intl.NumberFormat('id-ID', {
@@ -33,6 +49,7 @@ const Product = () => {
 
     return (
         <>
+            <ToastContainer />
             <h1 className="text-2xl font-bold p-5">Data Pemesanan Dibatalkan</h1>
             <div className="bg-white m-6 p-[30px] border-solid border-[#BAC7D5] border rounded">
                 <table className="w-full table-auto">
@@ -44,8 +61,8 @@ const Product = () => {
                             <th className="border p-2">Durasi</th>
                             <th className="border p-2">Harga</th>
                             <th className="border p-2">Jenis Pembayaran</th>
-                            <th className="border p-2">Bukti Transfer</th>
-                            <th className="border p-2">Dikarenakan</th>
+                            <th className="border p-2">Status
+                            </th>
                             <th className="border p-2">Action</th>
                         </tr>
                     </thead>
@@ -60,11 +77,9 @@ const Product = () => {
                                     <td className="border p-2">{formatNominal(item.harga)}</td>
                                     <td className="border p-2">{item.jenisPembayaran}</td>
                                     <td className="border p-2">{item.status}</td>
-                                    <td className="border p-2"> </td>
                                     <td className="border p-2">
                                         <div className="flex justify-center gap-2">
-                                            <button className='bg-pink-400 rounded-lg p-2 text-white'>Proses</button>
-                                            <button className='bg-red-500 rounded-lg p-2 text-white'>Hapus</button>
+                                            <button className='bg-red-500 rounded-lg p-2 text-white' onClick={() => handleDelete(item._id)}>Hapus</button>
                                         </div>
                                     </td>
                                 </tr>

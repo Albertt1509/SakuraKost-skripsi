@@ -5,6 +5,9 @@ const multer = require("multer");
 const path = require("path");
 const Selesai = require("../models/selesai");
 const Batal = require("../models/batal")
+const jwt = require('jsonwebtoken');
+const jwtSecret = "awdad231e2fdf243tr242d3d23"; // Ganti dengan nilai yang sesuai
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./foto"); // Folder tempat gambar akan disimpan

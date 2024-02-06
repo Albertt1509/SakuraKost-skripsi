@@ -8,11 +8,12 @@ import { Waktu } from './animation'
 export default function Status() {
     const { user, redy } = useContext(UserContext);
     const [simpan, setSimpan] = useState([]);
+
     useEffect(() => {
         if (user) {
             const fetchSimpanan = async () => {
                 try {
-                    const response = await axios.get(`/api/dataPesanan`);
+                    const response = await axios.get(`/api/dataPesanan`); // Kirim token dengan permintaan
                     setSimpan(response.data);
                 } catch (error) {
                     console.error('Error fetching favorite Kosts:', error);

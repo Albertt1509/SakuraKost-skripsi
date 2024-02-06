@@ -33,8 +33,6 @@ export default function Batal() {
 
     return (
         <>
-            {loading && <p>Loading...</p>}
-
             {!loading && (
                 <div>
                     {batal.map((item) => (

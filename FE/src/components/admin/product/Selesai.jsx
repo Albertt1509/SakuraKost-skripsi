@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from './ModalImg'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Product = () => {
     const [selesai, setSelesai] = useState([]);
@@ -9,7 +12,7 @@ const Product = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/selesai ');
+                const response = await axios.get('/api/selesai');
                 setSelesai(response.data);
             } catch (error) {
                 console.error('Error fetching purchase data:', error);
@@ -19,6 +22,17 @@ const Product = () => {
         fetchData();
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/api/selesai/${id}`);
+            setSelesai(selesai.filter(item => item._id !== id));
+            console.log("Data Selesai berhasil dihapus.");
+            toast.success('Pemesanan berhasil dihapus!');
+        } catch (error) {
+            console.error('Error deleting Selesai data:', error);
+            toast.error('Terjadi kesalahan saat menghapus pesanan.');
+        }
+    };
     const formatNominal = (value) => {
         const floatValue = parseFloat(value);
         return new Intl.NumberFormat('id-ID', {
@@ -34,6 +48,7 @@ const Product = () => {
 
     return (
         <>
+            <ToastContainer />
             <h1 className="text-2xl font-bold p-5">Data Pemesanan Selesai</h1>
             <div className="bg-white m-6 p-[30px] border-solid border-[#BAC7D5] border rounded">
                 <table className="w-full table-auto">
@@ -61,8 +76,7 @@ const Product = () => {
                                 <td className="border p-2">{item.status}</td>
                                 <td className="border p-2">
                                     <div className="flex justify-center gap-2">
-                                        <button className='bg-pink-400 rounded-lg p-2 text-white'>Proses</button>
-                                        <button className='bg-red-500 rounded-lg p-2 text-white'>Hapus</button>
+                                        <button className='bg-red-500 rounded-lg p-2 text-white' onClick={() => handleDelete(item._id)}>Hapus</button>
                                     </div>
                                 </td>
                             </tr>

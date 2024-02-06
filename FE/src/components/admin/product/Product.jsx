@@ -10,8 +10,7 @@ const Product = () => {
     const [purchases, setPurchases] = useState([]);
     const [selectedImageUrl, setSelectedImageUrl] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [setOrder] = useState([]);
-
+    const [order, setOrder] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,6 +65,11 @@ const Product = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    useEffect(() => {
+        if (order.length > 0) {
+            console.log('Order:', order); // Tampilkan pesan atau lakukan tindakan lain berdasarkan nilai order
+        }
+    }, [order]);
 
     return (
         <>
@@ -88,7 +92,7 @@ const Product = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {purchases.map((purchase) => (
+                        {Array.isArray(purchases) && purchases.map((purchase) => (
                             <tr key={purchase._id} className="">
                                 <td className="border p-2">
                                     <div className="flex justify-center">{purchase.name}</div>
@@ -130,6 +134,7 @@ const Product = () => {
                             </tr>
                         ))}
                     </tbody>
+
                 </table>
             </div>
             <Modal isOpen={isModalOpen} onClose={closeModal} imageUrl={selectedImageUrl} />

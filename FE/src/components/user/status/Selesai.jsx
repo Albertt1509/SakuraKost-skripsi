@@ -21,6 +21,7 @@ export default function Selesai() {
         fetchSimpanan();
     }, []);
 
+
     const formatNominal = (value) => {
         const floatValue = parseFloat(value);
         return new Intl.NumberFormat('id-ID', {

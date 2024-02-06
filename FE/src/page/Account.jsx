@@ -11,7 +11,6 @@ export default function AccountPage() {
         subpage = 'profile'
     }
     //aktivate link
-
     const { user, redy, setUser } = useContext(UserContext);
     if (!redy) {
         return '...Loading';
@@ -56,7 +55,7 @@ export default function AccountPage() {
 
                         </div>
                         <div className="absolute bottom-0 right-0 mb-1 mr-4">
-                            <button onClick={logout} className="bg-pink-400 text-white py-2 px-4 rounded">
+                            <button onClick={logout} className="bg-pink-400 text-white py-2 px-4 mt-3 rounded">
                                 Logout
                             </button>
                         </div>

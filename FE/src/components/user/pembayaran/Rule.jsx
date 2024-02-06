@@ -1,4 +1,3 @@
-import React from "react";
 
 const Rule = () => {
     return (
@@ -7,6 +6,7 @@ const Rule = () => {
             <ul className="list-decimal ml-6">
                 <li className="mb-2"> Perhatikan untuk nama kos yang akan dipesan</li>
                 <li className="mb-2"> Pilih jenis pembayaran yang akan digunakan</li>
+                <li className="mb-2"> Jika menggunakan transfer bank, maka lakukan pembayaran dan kirim bukti pembayaran</li>
                 <li className="mb-2"> Tujuan dari upload foto adalah untuk identifikasi wajah</li>
                 <li className="mb-2"> Jika sudah yakin dengan pilihan maka klik button bayar</li>
                 <li className="mb-2"> Data pembayaran akan masuk ke menu pembayaran

@@ -86,7 +86,7 @@ const getProfile = (req, res) => {
 
 //logout
 const getLogout = (req, res) => {
-  res.cookie("token", "").json(true);
+  res.clearCookie('token').json(true);
 };
 module.exports = {
   createRegisterUser,

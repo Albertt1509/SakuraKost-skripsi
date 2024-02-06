@@ -24,11 +24,16 @@ export default function Login() {
     const [showAlert, setShowAlert] = useState(false);
 
     // Handle submit logic 
+    // Handle submit logic 
     async function handleSubmit(ev) {
         ev.preventDefault();
         try {
             const { data } = await axios.post('/api/login', { email, password });
             setUser(data);
+
+            // Simpan token JWT ke penyimpanan lokal (localStorage)
+            localStorage.setItem('token', data.token);
+
             setAlertMessage('Login berhasil');
             setAlertType('success');
             setShowAlert(true);
