@@ -24,7 +24,6 @@ export default function Login() {
     const [showAlert, setShowAlert] = useState(false);
 
     // Handle submit logic 
-    // Handle submit logic 
     async function handleSubmit(ev) {
         ev.preventDefault();
         try {
@@ -37,7 +36,7 @@ export default function Login() {
             setAlertMessage('Login berhasil');
             setAlertType('success');
             setShowAlert(true);
-            setRedirect(data.role === 'admin' ? '/admin' : '/');
+            setRedirect(data.role === 'superAdmin' || data.role === 'admin' ? '/admin' : '/');
         } catch (e) {
             setAlertMessage('Username dan Password yang Anda Masukkan Salah, Coba Lagi');
             setAlertType('error');

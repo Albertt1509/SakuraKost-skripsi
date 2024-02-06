@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -62,6 +62,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 kamar: '',
                 jenis: '',
                 price: '',
+                statusKamar: '',
                 rekening: '',
                 phoneNumber: '',
                 description: '',
@@ -238,6 +239,20 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     <option value="Laki-Laki">Kost Laki-laki</option>
                                                     <option value="Perempuan">Kost Perempuan</option>
                                                     <option value="Campuran">Kost Campuran</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <h2 className="text-2xl font-bold">Status Kos</h2>
+                                                <select
+                                                    value={editedKost.statusKamar}
+                                                    name='statusKamar'
+                                                    onChange={handleInputChange}
+                                                    className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                                                >
+                                                    <option value='' disabled selected>Pilih Status</option>
+                                                    <option value="Penuh">Penuh</option>
+                                                    <option value="tersedia">Tersedia</option>
+
                                                 </select>
                                             </div>
                                             <div className="mb-2">

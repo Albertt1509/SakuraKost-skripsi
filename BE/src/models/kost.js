@@ -17,12 +17,7 @@ const kostSchema = new Schema({
     type: String,
     enum: ["Laki-Laki", "Perempuan", "Campuran"],
   },
-  savedBy: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
-  ],
+  statusKamar: String,
   wifi: Boolean,
   parking: Boolean,
   kitchen: Boolean,

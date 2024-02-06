@@ -127,7 +127,7 @@ const Product = () => {
                                 <td className="border p-2">{purchase.status}</td>
                                 <td className="border p-2">
                                     <div className="flex justify-center gap-2">
-                                        <button className='bg-pink-400 rounded-lg p-2 text-white' onClick={() => OrderSelesai(purchase)}>Proses</button>
+                                        <button className='bg-green-400 rounded-lg p-2 text-white' onClick={() => OrderSelesai(purchase)}>Proses</button>
                                         <button className='bg-red-500 rounded-lg p-2 text-white' onClick={() => OrderBatal(purchase)}>Batalkan</button>
                                     </div>
                                 </td>

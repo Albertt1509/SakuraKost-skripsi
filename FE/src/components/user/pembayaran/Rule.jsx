@@ -7,7 +7,7 @@ const Rule = () => {
                 <li className="mb-2"> Perhatikan untuk nama kos yang akan dipesan</li>
                 <li className="mb-2"> Pilih jenis pembayaran yang akan digunakan</li>
                 <li className="mb-2"> Jika menggunakan transfer bank, maka lakukan pembayaran dan kirim bukti pembayaran</li>
-                <li className="mb-2"> Tujuan dari upload foto adalah untuk identifikasi wajah</li>
+                <li className="mb-2"> Pastikan foto selfie adalah orang yang akan menempati kamar yang dipesan</li>
                 <li className="mb-2"> Jika sudah yakin dengan pilihan maka klik button bayar</li>
                 <li className="mb-2"> Data pembayaran akan masuk ke menu pembayaran
                     yang ada di pojok kanan atas</li>

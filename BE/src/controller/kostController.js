@@ -19,9 +19,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// Mengunggah gambar dan menyimpan data Kost ke database
 router.post("/kost", upload.array("photos", 5), async (req, res) => {
   try {
+    // Mendapatkan ID admin dari request user
     const {
       title,
       address,
@@ -33,6 +33,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       location,
       jenis,
       kamar,
+      statusKamar,
       phoneNumber,
       price,
       wifi,
@@ -48,6 +49,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
     } = req.body;
     const photos = req.files.map((file) => file.filename); // Ambil nama file dari gambar yang diunggah
 
+    // Membuat instance Kost dengan menyertakan createdBy(adminId)
     const newKost = new Kost({
       title,
       address,
@@ -55,6 +57,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       description,
       moreinfo,
       capacity,
+      statusKamar,
       jenis,
       kamar,
       owner,
@@ -74,6 +77,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       water,
     });
     const savedKost = await newKost.save();
+
     res.json(savedKost);
   } catch (error) {
     res
@@ -81,6 +85,7 @@ router.post("/kost", upload.array("photos", 5), async (req, res) => {
       .json({ error: "Terjadi kesalahan dalam menyimpan data Kost." });
   }
 });
+
 // Rute GET untuk mengambil data Kos
 router.get("/kost", async (req, res) => {
   try {
@@ -149,6 +154,7 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
       rekening,
       owner,
       location,
+      statusKamar,
       phoneNumber,
       price,
       kamar,
@@ -183,6 +189,7 @@ router.put("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
       owner,
       kamar,
       rekening,
+      statusKamar,
       location,
       phoneNumber,
       price,

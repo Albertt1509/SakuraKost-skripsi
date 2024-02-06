@@ -5,8 +5,6 @@ const multer = require("multer");
 const path = require("path");
 const Selesai = require("../models/selesai");
 const Batal = require("../models/batal")
-const jwt = require('jsonwebtoken');
-const jwtSecret = "awdad231e2fdf243tr242d3d23"; // Ganti dengan nilai yang sesuai
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -26,7 +24,6 @@ const upload = multer({ storage: storage });
 router.post("/pemesanan", upload.fields([{ name: 'selpi', maxCount: 1 }, { name: 'transfer', maxCount: 1 }]), async (req, res) => {
   try {
     const { title, name, tanggalPemesanan, durasi, harga, jenisPembayaran, status } = req.body;
-
     // Pemeriksaan untuk memastikan file 'selpi' dan 'transfer' ada
     const selpiFile = req.files['selpi'];
     const transferFile = req.files['transfer'];
@@ -108,7 +105,6 @@ router.post("/batalPemesanan/:batalId", async (req, res) => {
     if (!pemesanan) {
       return res.status(404).json({ success: false, message: 'Pemesanan tidak ditemukan' });
     }
-
     // Simpan data pembatalan
     const batalData = {
       title: pemesanan.title,
@@ -121,10 +117,8 @@ router.post("/batalPemesanan/:batalId", async (req, res) => {
       selpi: pemesanan.selpi,
       transfer: pemesanan.transfer,
     };
-
     const batal = new Batal(batalData);
     const savedBatal = await batal.save();
-
     // Hapus pemesanan yang dibatalkan
     await Pemesanan.findByIdAndRemove(batalId);
 

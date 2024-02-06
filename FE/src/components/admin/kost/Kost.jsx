@@ -18,6 +18,7 @@ export default function Kost() {
     const [capacity, setCapacity] = useState('');
     const [jenis, setJenis] = useState('');
     const [kamar, setKamar] = useState('');
+    const [statusKamar, setStatusKamar] = useState('');
     const [location, setLocation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [price, setPrice] = useState('');
@@ -35,8 +36,6 @@ export default function Kost() {
     const [energy, setEnergy] = useState(false);
     const [water, setWater] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
-
-
     // to image post
     const handleImageChange = (e) => {
         const selectedFiles = e.target.files;
@@ -70,6 +69,7 @@ export default function Kost() {
         formData.append('kamar', kamar);
         formData.append('capacity', capacity);
         formData.append('location', location);
+        formData.append('statusKamar', statusKamar);
         formData.append('phoneNumber', phoneNumber);
         formData.append('price', price);
         formData.append('owner', owner);
@@ -110,6 +110,7 @@ export default function Kost() {
                 setLocation('');
                 setOwner('');
                 setRekening('');
+                setStatusKamar('');
                 setKamar('');
                 setJenis('');
                 setPhoneNumber('');
@@ -264,6 +265,21 @@ export default function Kost() {
                                 style={{ maxWidth: '50px', display: 'flex justify-content-center ' }} // Adjust the size as needed
                             />
                         )}
+                        <p className='text-sm'>unggah minimal 5 foto</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Status Kos</h2>
+                        <select
+                            value={statusKamar}
+                            name='statusKamar'
+                            onChange={(ev) => setStatusKamar(ev.target.value)}
+                            className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                        >
+                            <option value='' disabled selected>Pilih Status</option>
+                            <option value="Penuh">Penuh</option>
+                            <option value="tersedia">Tersedia</option>
+
+                        </select>
                     </div>
                 </div>
                 {/* description */}
