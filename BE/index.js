@@ -11,8 +11,9 @@ app.use(express.json());
 const corsConfig = {
   origin: "https://vast-cyan-ray-tux.cyclic.app",
   credentials: true,
-  methods: ["GET", "UPDATE", "DELETE", "PUT", "USE"]
+  methods: ["GET", "UPDATE", "DELETE", "PUT", "POST"] 
 };
+
 app.use(cors(corsConfig));
 
 mongoose
