@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, } from "react-router-dom";
-import UserContext from "../user/userContext";
+import UserContext from "../../components/user/UserContext";
 import Icon from '../../assets/polder/icon.png';
 
 export default function Navbar() {
@@ -10,10 +10,6 @@ export default function Navbar() {
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
-    };
-
-    const closeMenu = () => {
-        setMenuVisible(false);
     };
 
     useEffect(() => {
