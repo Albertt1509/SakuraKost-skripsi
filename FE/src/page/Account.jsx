@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import UserContext from "../components/user/userContext";
+import UserContext from "../components/user/UserContext";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import KostPage from "./Kost";

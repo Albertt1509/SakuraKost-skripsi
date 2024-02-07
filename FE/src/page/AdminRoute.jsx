@@ -1,7 +1,7 @@
 // AdminRoute.js
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Route, Navigate } from 'react-router-dom';
-import UserContext from '../components/user/userContext';
+import UserContext from '../components/user/UserContext';
 
 const AdminRoute = ({ element: Component, ...rest }) => {
     const { user } = useContext(UserContext);
