@@ -9,7 +9,7 @@ const path = require("path");
 
 app.use(express.json());
 const corsConfig = {
-  origin: ["https://vast-cyan-ray-tux.cyclic.app","http://localhost:5173","http://127.0.0.1:5173/"],
+  origin: "https://vast-cyan-ray-tux.cyclic.app",
   credentials: true,
   methods: ["GET", "UPDATE", "DELETE", "PUT", "POST"],
 };
