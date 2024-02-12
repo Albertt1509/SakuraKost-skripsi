@@ -265,11 +265,6 @@ router.delete("/kost/:id", async (req, res) => {
       return res.status(404).json({ error: "Data Kost tidak ditemukan." });
     }
 
-    // Hapus gambar dari Cloudinary menggunakan public_id
-    kostToDelete.photos.forEach(async (photo) => {
-      await cloudinary.uploader.destroy(photo.public_id);
-    });
-
     // Menggunakan deleteOne untuk menghapus entitas Kost dari database
     await Kost.deleteOne({ _id: id });
 
