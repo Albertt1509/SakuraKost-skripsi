@@ -272,6 +272,7 @@ export default function Pembayaran() {
                                     <div className="flex justify-between">
                                         <div className=" ">
                                             <h1>Foto Selfi</h1>
+                                            <p className="text-sm text-slate-500">Gambar tidak lebih dari 2Mb</p>
                                             <input
                                                 type="file"
                                                 name="selpi"
@@ -283,6 +284,7 @@ export default function Pembayaran() {
                                         {jenisPembayaran === "Transfer Bank" && (
                                             <div className="">
                                                 <h1>Bukti Transfer</h1>
+                                                <p className="text-sm text-slate-500">Gambar tidak lebih dari 2Mb</p>
                                                 <input
                                                     type="file"
                                                     name="transfer"

@@ -23,7 +23,7 @@ import Edit from './components/admin/kost/Edit'
 
 
 //api
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'https://vast-cyan-ray-tux.cyclic.app';
 axios.defaults.withCredentials = true
 function App() {
 

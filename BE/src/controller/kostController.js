@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// konfigurasi multer jika ingin disimpan dilokal
+// konfigurasi multer jika ingin disimpan dilokal 
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
 //     cb(null); // Folder tempat gambar akan disimpan jika ingin disimpan di lokal
@@ -154,7 +154,7 @@ router.get("/api/kost/:id", async (req, res) => {
 
     const kostWithImageUrls = {
       ...kostData.toObject(),
-      photos: kostData.photos.map((photo) => `${photo}`),
+      photos: kostData.photos.map((photo) => cloudinary.url(photo)), // Gunakan URL valid dari Cloudinary
     };
 
     res.json(kostWithImageUrls);
@@ -162,7 +162,9 @@ router.get("/api/kost/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Gagal mengambil data Kost." });
   }
-}); //update data
+});
+
+//update data
 router.post("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
   try {
     const { id } = req.params; // Ambil ID dari parameter rute
@@ -202,7 +204,6 @@ router.post("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
         return result.secure_url; // Mengembalikan URL gambar yang diunggah dari Cloudinary
       } catch (error) {
         console.error(error)
-        throw error; // lemparkan kesalahan untuk ditangkap di bawah
       }
     }));
 
@@ -243,10 +244,11 @@ router.post("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
     // Lakukan operasi pembaruan data Kost berdasarkan ID
     const result = await Kost.findByIdAndUpdate(id, updatedKost, { new: true });
 
-    // Hapus gambar-gambar lama dari Cloudinary setelah pembaruan berhasil
-    kostToUpdate.photos.forEach(async (photo) => {
-      await cloudinary.uploader.destroy(photo.public_id);
-    });
+    // Hapus gambar-gambar lama dari direktori setelah pembaruan berhasil
+    // kostToUpdate.photos.forEach((photo) => {
+    //   const filePath = path.join("./images", photo);
+    //   fs.unlinkSync(filePath);
+    // });
 
     res.json(result);
   } catch (error) {
@@ -254,6 +256,7 @@ router.post("/api/kost/:id", upload.array("photos", 5), async (req, res) => {
     res.status(500).json({ error: "Gagal memperbarui data Kost." });
   }
 });
+
 
 // Saat menghapus entitas Kost
 router.delete("/kost/:id", async (req, res) => {
@@ -264,11 +267,6 @@ router.delete("/kost/:id", async (req, res) => {
     if (!kostToDelete) {
       return res.status(404).json({ error: "Data Kost tidak ditemukan." });
     }
-
-    // Hapus gambar dari Cloudinary menggunakan public_id
-    kostToDelete.photos.forEach(async (photo) => {
-      await cloudinary.uploader.destroy(photo.public_id);
-    });
 
     // Menggunakan deleteOne untuk menghapus entitas Kost dari database
     await Kost.deleteOne({ _id: id });

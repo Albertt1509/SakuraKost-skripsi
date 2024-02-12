@@ -37,15 +37,39 @@ export default function Kost() {
     const [water, setWater] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
     // to image post
+
+    // image size
     const handleImageChange = (e) => {
         const selectedFiles = e.target.files;
-        setPhotos(selectedFiles);
+        const imagePreviews = [];
+        let hasLargeFile = false;
 
-        const imagePreviews = Array.from(selectedFiles).map(file =>
-            URL.createObjectURL(file)
-        );
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            // Periksa ukuran berkas
+            if (file.size > 2 * 1024 * 1024) {
+                hasLargeFile = true;
+            } else {
+                imagePreviews.push(URL.createObjectURL(file));
+            }
+        }
+
+        // Tampilkan notifikasi jika ada berkas yang terlalu besar
+        if (hasLargeFile) {
+            toast.error('Ukuran file foto tidak boleh lebih dari 2MB', {
+                position: 'top-right',
+                style: {
+
+                },
+                autoClose: 3000,
+            });
+        }
+
+        // Setel state hanya untuk berkas dengan ukuran yang sesuai
+        setPhotos(selectedFiles);
         setImagePreview(imagePreviews);
     };
+
     // for data fill
     async function handleSubmit(ev) {
         ev.preventDefault();
