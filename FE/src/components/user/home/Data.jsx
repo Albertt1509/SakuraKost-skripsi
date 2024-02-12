@@ -65,7 +65,7 @@ const Data = () => {
                         </button>
                         <Link to={`/content/${kost._id}`}>
                             <img
-                                src={`http://localhost:4000/images/${kost.photos[0]}`}
+                                src={`${kost.photos[0]}`}
                                 className="w-full h-[50vh] z-0 rounded-t-lg object-cover"
                             />
                             <h2 className="text-lg font-semibold mb-2">{kost.title}</h2>

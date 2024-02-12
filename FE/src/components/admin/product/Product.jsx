@@ -113,13 +113,13 @@ const Product = () => {
                                     <div className="flex justify-center">{purchase.jenisPembayaran}</div>
                                 </td>
                                 <td className="border p-2">
-                                    <div className="cursor-pointer flex justify-center" onClick={() => openModal(`http://localhost:4000/foto/${purchase.selpi[0]}`)}>
+                                    <div className="cursor-pointer flex justify-center" onClick={() => openModal(`${purchase.selpi[0]}`)}>
                                         Lihat
                                     </div>
                                 </td>
                                 <td className="border p-2">
                                     {purchase.jenisPembayaran !== 'Bayar Di Tempat' && (
-                                        <div className="cursor-pointer flex justify-center" onClick={() => openModal(`http://localhost:4000/foto/${purchase.transfer[0]}`)}>
+                                        <div className="cursor-pointer flex justify-center" onClick={() => openModal(`${purchase.transfer[0]}`)}>
                                             Lihat
                                         </div>
                                     )}

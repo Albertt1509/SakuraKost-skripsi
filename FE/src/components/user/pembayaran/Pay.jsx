@@ -156,6 +156,7 @@ export default function Pembayaran() {
         }
     };
 
+
     const handleKonfirmasiPembayaran = async () => {
         try {
             const formData = new FormData();
@@ -175,7 +176,6 @@ export default function Pembayaran() {
                     formData.append('transfer', transferFile);
                 }
             }
-
             // Jika jenis pembayaran adalah 'Bayar Di Tempat', tambahkan file selfi dan transfer ke FormData
             if (jenisPembayaran === 'Bayar Di Tempat' && selfiFile) {
                 formData.append('selpi', selfiFile);
@@ -289,6 +289,7 @@ export default function Pembayaran() {
                                                     className="bg-white p-2 border mt-2 border-gray-300 rounded"
                                                     onChange={(e) => handleFileChange(e, 'transfer')}
                                                 />
+
                                                 <div className="mt-3 mr-auto">
                                                     <h1>No Rekening Tujuan</h1>
                                                     <div className="flex">

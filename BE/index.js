@@ -5,14 +5,14 @@ const routes = require('./src/routes/route.js');
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const app = express();
-const path = require("path");
-
+const path = require('path')
 app.use(express.json());
 const corsConfig = {
-  origin: "*",
+  origin: "http://localhost:5173",
   credentials: true,
   methods: ["GET", "UPDATE", "DELETE", "PUT", "USE"]
 };
+
 app.use(cors(corsConfig));
 
 mongoose
@@ -25,8 +25,8 @@ mongoose
 app.use(cookieParser());
 
 // Serve static files
-app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/foto", express.static(path.join(__dirname, "foto")));
+// app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use("/foto", express.static(path.join(__dirname, "foto")));
 
 app.use("/", routes);
 

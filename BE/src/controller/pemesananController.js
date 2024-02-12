@@ -1,41 +1,56 @@
 const express = require("express");
 const router = express.Router();
 const Pemesanan = require("../models/Pemesanan");
-const multer = require("multer");
 const path = require("path");
 const Selesai = require("../models/selesai");
-const Batal = require("../models/batal")
-
+const Batal = require("../models/batal");
+const multer = require("multer");
+const cloudinary = require('../util/cloudynary')
+// konfigurasi multer jika ingin disimpan di lokal
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null); // Folder tempat gambar akan disimpan jika ingin disimpan di lokal
+//   },
+//   filename: (req, file, cb) => {
+//     // Menghasilkan timestamp saat ini dalam milidetik sebagai bagian dari nama file
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     const ext = path.extname(file.originalname);
+//     // Menggabungkan semua elemen untuk membentuk nama file yang unik
+//     cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+//   },
+// });
+// const upload = multer({ storage: storage });
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./foto"); // Folder tempat gambar akan disimpan
-  },
   filename: (req, file, cb) => {
-    // Menghasilkan timestamp saat ini dalam milidetik sebagai bagian dari nama file
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname);
-    // Menggabungkan semua elemen untuk membentuk nama file yang unik
-    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+    cb(null, Date.now() + "-" + file.originalname); // Menggunakan timestamp sebagai nama file
   },
 });
 
 const upload = multer({ storage: storage });
-// Route untuk endpoint
+// Fungsi untuk mengunggah gambar ke Cloudinary
+const uploadImageToCloudinary = async (file) => {
+  try {
+    const result = await cloudinary.uploader.upload(file.path);
+    return result.secure_url; // Mengembalikan URL gambar yang diunggah dari Cloudinary
+  } catch (error) {
+    throw new Error('Gagal mengunggah gambar ke Cloudinary: ' + error.message);
+  }
+};
+
+// Route untuk endpoint pembayaran
 router.post("/pemesanan", upload.fields([{ name: 'selpi', maxCount: 1 }, { name: 'transfer', maxCount: 1 }]), async (req, res) => {
   try {
     const { title, name, tanggalPemesanan, durasi, harga, jenisPembayaran, status } = req.body;
-    // Pemeriksaan untuk memastikan file 'selpi' dan 'transfer' ada
     const selpiFile = req.files['selpi'];
     const transferFile = req.files['transfer'];
 
     if (!selpiFile || !selpiFile[0] || (jenisPembayaran === 'Transfer Bank' && (!transferFile || !transferFile[0]))) {
-      // Handle error, mungkin dengan memberikan respon kesalahan
       res.status(400).json({ error: "File 'selpi' atau 'transfer' tidak ditemukan." });
       return;
     }
 
-    const selpi = selpiFile[0].filename;
-    const transfer = transferFile ? transferFile[0].filename : null;
+    const selpi = await uploadImageToCloudinary(selpiFile[0]);
+    const transfer = jenisPembayaran === 'Transfer Bank' ? await uploadImageToCloudinary(transferFile[0]) : null;
 
     const pemesanan = new Pemesanan({
       tanggalPemesanan,
@@ -56,6 +71,8 @@ router.post("/pemesanan", upload.fields([{ name: 'selpi', maxCount: 1 }, { name:
     res.status(500).json({ error: error.message });
   }
 });
+
+// Route untuk endpoint pengambilan data pesanan
 router.get("/dataPesanan", async (req, res) => {
   try {
     const purchases = await Pemesanan.find();
@@ -66,10 +83,10 @@ router.get("/dataPesanan", async (req, res) => {
   }
 });
 
+// Route untuk endpoint pemrosesan pesanan
 router.post("/prosesPemesanan/:purchaseId", async (req, res) => {
   try {
     const { purchaseId } = req.params;
-    // Temukan pemesanan yang akan diproses
     const purchase = await Pemesanan.findById(purchaseId);
     if (!purchase) {
       return res.status(404).json({ success: false, message: 'Pemesanan tidak ditemukan' });
@@ -97,15 +114,15 @@ router.post("/prosesPemesanan/:purchaseId", async (req, res) => {
   }
 });
 
+// Route untuk endpoint pembatalan pesanan
 router.post("/batalPemesanan/:batalId", async (req, res) => {
   try {
     const { batalId } = req.params;
-    // Temukan pemesanan yang akan dibatalkan
     const pemesanan = await Pemesanan.findById(batalId);
     if (!pemesanan) {
       return res.status(404).json({ success: false, message: 'Pemesanan tidak ditemukan' });
     }
-    // Simpan data pembatalan
+
     const batalData = {
       title: pemesanan.title,
       tanggalPemesanan: pemesanan.tanggalPemesanan,
@@ -117,9 +134,9 @@ router.post("/batalPemesanan/:batalId", async (req, res) => {
       selpi: pemesanan.selpi,
       transfer: pemesanan.transfer,
     };
+
     const batal = new Batal(batalData);
     const savedBatal = await batal.save();
-    // Hapus pemesanan yang dibatalkan
     await Pemesanan.findByIdAndRemove(batalId);
 
     res.status(200).json({ success: true, message: 'Pemesanan berhasil dibatalkan', data: savedBatal });
@@ -128,4 +145,5 @@ router.post("/batalPemesanan/:batalId", async (req, res) => {
     res.status(500).json({ success: false, message: `Terjadi kesalahan saat memproses pembatalan pemesanan: ${error.message}` });
   }
 });
+
 module.exports = router;

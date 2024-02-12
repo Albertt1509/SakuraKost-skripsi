@@ -35,7 +35,7 @@ router.use("/api", kostController);
 //mengambil data kos
 router.get("/api/kost/:id", kostController);
 //mengedit data kos
-router.put("/api/kost/:id", kostController);
+router.post("/api/kost/:id", kostController);
 // menghapus data kos
 router.delete("/api/kost/:id", kostController);
 // membuat data pemesanan

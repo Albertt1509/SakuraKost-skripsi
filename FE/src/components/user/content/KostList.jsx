@@ -119,7 +119,7 @@ const KostList = ({ jenisKos, kostData: initialKostData, onRemoveFavorite }) => 
                                 </button>
                                 <Link to={`/content/${kost._id}`}>
                                     <img
-                                        src={`http://localhost:4000/images/${kost.photos[0]}`}
+                                        src={`${kost.photos[0]}`}
                                         alt={kost.namaKost}
                                         className="w-full h-[50vh] z-0"
                                     />

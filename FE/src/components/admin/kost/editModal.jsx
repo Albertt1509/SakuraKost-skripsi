@@ -40,7 +40,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 }
             }
 
-            await axios.put(`/api/kost/${editedKost._id}`, formData);
+            await axios.post(`/api/kost/${editedKost._id}`, formData);
             toast.success('Data Telah Disimpan', {
                 position: 'top-right',
                 style: {
@@ -242,7 +242,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                 </select>
                                             </div>
                                             <div>
-                                                <h2 className="text-2xl font-bold">Status Kos</h2>
+                                                <h2 className="block text-sm font-medium text-gray-700">Status Kos</h2>
                                                 <select
                                                     value={editedKost.statusKamar}
                                                     name='statusKamar'

@@ -36,7 +36,7 @@ export default function Galery() {
                 <div className="w-full md:w-1/2 flex ">
                     <div className="w-full">
                         <img
-                            src={`http://localhost:4000/images/${kost.photos[0]}`}
+                            src={`${kost.photos[0]}`}
                             className="w-full h-[73vh] object-cover"
                             onClick={handleModalOpen}
                         />
@@ -47,7 +47,7 @@ export default function Galery() {
                         id="red-one"
                         className="bg-cover bg-center flex-grow"
                         style={{
-                            backgroundImage: `url(http://localhost:4000/images/${kost.photos[1]})`,
+                            backgroundImage: `url(${kost.photos[1]})`,
                             width: '100%',
                             height: '200px',
                         }}
@@ -58,7 +58,7 @@ export default function Galery() {
                         id="red-two"
                         className="bg-cover bg-center mt-4 flex-grow"
                         style={{
-                            backgroundImage: `url(http://localhost:4000/images/${kost.photos[2]})`,
+                            backgroundImage: `url(${kost.photos[2]})`,
                             width: '100%',
                             height: '200px',
                         }}
@@ -70,7 +70,7 @@ export default function Galery() {
                     <div
                         className="bg-cover bg-center flex-grow"
                         style={{
-                            backgroundImage: `url(http://localhost:4000/images/${kost.photos[3]})`,
+                            backgroundImage: `url(${kost.photos[3]})`,
                             width: '100%',
                             height: '200px',
                         }}
@@ -81,7 +81,7 @@ export default function Galery() {
                         id="red-two"
                         className="bg-cover bg-center mt-4 flex-grow"
                         style={{
-                            backgroundImage: `url(http://localhost:4000/images/${kost.photos[4]})`,
+                            backgroundImage: `url(${kost.photos[4]})`,
                             width: '100%',
                             height: '200px',
                         }}
@@ -107,7 +107,7 @@ export default function Galery() {
                             {kost.photos.map((photo, index) => (
                                 <div key={index} className="w-full md:w-1/3 lg:w-1/4 mb-4 px-2">
                                     <img
-                                        src={`http://localhost:4000/images/${photo}`}
+                                        src={`${photo}`}
                                         className="w-full h-32 "
                                         alt={`Photo ${index + 1}`}
                                     />
