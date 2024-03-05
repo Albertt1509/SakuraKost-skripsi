@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.45.2",
-    "axios": "^1.5.1",
+    "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "js-cookie": "^3.0.5",
     "lottie-web": "^5.12.2",
@@ -43,7 +43,7 @@
   },
   "proxy": {
     "/api": {
-      "target": "https://vast-cyan-ray-tux.cyclic.app",
+      "target": "",
       "changeOrigin": true
     }
   }

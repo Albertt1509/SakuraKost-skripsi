@@ -61,13 +61,20 @@ const Home = () => {
             {!isMobile && (
                 <div className="flex absolute bottom-0 left-0 p-2 ml-2 mb-2 space-x-6">
                     <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">
-                        <FaFacebook size={20} color="white" />
+                        <a href="https://www.facebook.com/profile.php?id=100070822304567&locale=id_ID" target="blank">
+                            <FaFacebook size={20} color="white" />
+                        </a>
+                    </div>
+
+                    <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">
+                        <a href="https://www.instagram.com/albert.jsx/" target="blank">
+                            <BsInstagram size={20} color="white" />
+                        </a >
                     </div>
                     <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">
-                        <BsInstagram size={20} color="white" />
-                    </div>
-                    <div className="bg-pink-500 rounded-full p-2 flex items-center justify-center">
-                        <AiOutlineMail size={20} color="white" />
+                        <a href="mailto:nathanael3321@gmail.com">
+                            <AiOutlineMail size={20} color="white" />
+                        </a>
                     </div>
                     <button
                         className={`bg-pink-500 rounded-full p-2 flex items-center justify-center ${isPlaying ? 'animate-spin' : ''}`}

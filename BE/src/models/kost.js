@@ -1,11 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+const addressRegex = /^[a-zA-Z0-9.,\s]+$/;
 const kostSchema = new Schema({
   title: String,
-  address: String,
+  address: {
+    type: String,
+    required: true,
+    match: addressRegex,
+  },
   photos: [{ type: String, required: true }],
   description: String,
-  moreinfo: String,
+  link: String,
   capacity: Number,
   location: String,
   kamar: Number,

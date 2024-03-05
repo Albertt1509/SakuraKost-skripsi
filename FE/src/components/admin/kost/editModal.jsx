@@ -59,6 +59,7 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 photos: [],
                 capacity: '',
                 owner: '',
+                link: '',
                 kamar: '',
                 jenis: '',
                 price: '',
@@ -66,7 +67,6 @@ const Modal = ({ isOpen, onClose, kost }) => {
                 rekening: '',
                 phoneNumber: '',
                 description: '',
-                moreinfo: '',
                 wifi: false,
                 parking: false,
                 kitchen: false,
@@ -142,6 +142,16 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                         type="text"
                                                         name="address"
                                                         value={editedKost.address}
+                                                        onChange={handleInputChange}
+                                                        className="w-full p-2 border border-gray-300 rounded"
+                                                    />
+                                                </div>
+                                                <div className="mb-2">
+                                                    <label className="block text-sm font-medium text-gray-700">Link Alamat:</label>
+                                                    <input
+                                                        type="text"
+                                                        name="link"
+                                                        value={editedKost.link}
                                                         onChange={handleInputChange}
                                                         className="w-full p-2 border border-gray-300 rounded"
                                                     />
@@ -261,16 +271,6 @@ const Modal = ({ isOpen, onClose, kost }) => {
                                                     type="text"
                                                     name="description"
                                                     value={editedKost.description}
-                                                    onChange={handleInputChange}
-                                                    className="w-full p-2 border border-gray-300 rounded"
-                                                />
-                                            </div>
-                                            <div className="mb-2">
-                                                <label className="block text-sm font-medium text-gray-700">Informasi Tambahan:</label>
-                                                <textarea
-                                                    type="text"
-                                                    name="moreinfo"
-                                                    value={editedKost.moreinfo}
                                                     onChange={handleInputChange}
                                                     className="w-full p-2 border border-gray-300 rounded"
                                                 />

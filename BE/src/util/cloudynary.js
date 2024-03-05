@@ -8,3 +8,4 @@ cloudinary.config({
 });
 
 module.exports = cloudinary;
+// jangan diambil ya untuk akses ke cloudynari saya 😉

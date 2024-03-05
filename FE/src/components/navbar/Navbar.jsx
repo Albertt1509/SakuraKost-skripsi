@@ -47,9 +47,9 @@ export default function Navbar() {
                     <ul className="lg:flex items-center text-lg gap-4">
                         <li className="p-2 font-bold"> Dimana</li>
                         <div className="">|</div>
-                        <a href="#kapan" className="p-2 font-bold">Kapan</a>
+                        <li className="p-2 font-bold">Kapan</li>
                         <div className="">|</div>
-                        <a href="" className="p-2 font-bold">Siapa</a>
+                        <li className="p-2 font-bold">Siapa</li>
                     </ul>
                 </div>
                 <div className="login hidden lg:flex items-center text-lg gap-4 justify-between">
@@ -92,13 +92,13 @@ export default function Navbar() {
                 <div className={`sm:hidden fixed top-0 left-0 w-60 h-full bg-pink-600 transform ${menuVisible ? 'translate-x-0' : '-translate-x-60'} transition-transform duration-300 ease-in-out text-white p-4 pt-16`}>
                     <ul>
                         <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
-                            <Link to=''>Dimana</Link>
+                            <a> Dimana</a>
                         </li>
                         <a href="#kapan" className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
                             Kapan
                         </a>
                         <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
-                            <Link to=''>Siapa</Link>
+                            <a> Dimana</a>
                         </li>
                         {/* Your existing user/account section */}
                         <Link to={user ? '/account' : '/login'} className="flex gap-2 rounded-lg p-3 items-center">

@@ -1,75 +1,99 @@
-import { useEffect, useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useEffect, useState } from 'react';
+import ApexCharts from 'apexcharts';
 import Axios from 'axios';
 
-const BarChartWithAPI = () => {
-    const [kostDataLength, setKostDataLength] = useState(0);
+const VerticalBarChart = () => {
+    const [selesaiDataLength, setSelesaiDataLength] = useState(0);
+    const [batalDataLength, setBatalDataLength] = useState(0);
 
     useEffect(() => {
         Axios.get('/api/selesai')
             .then((response) => {
-                setKostDataLength(response.data.length);
+                setSelesaiDataLength(response.data.length);
             })
             .catch((error) => {
                 console.error(error);
             });
     }, []);
+
     useEffect(() => {
         Axios.get('/api/batal')
             .then((response) => {
-                setKostDataLength(response.data.length);
+                setBatalDataLength(response.data.length);
             })
             .catch((error) => {
                 console.error(error);
             });
     }, []);
 
-    const chartData = {
-        series: [
-            {
-                name: 'Selesai',
-                data: [kostDataLength],
-            },
-            {
-                name: 'Batal',
-                data: [kostDataLength],
-            },
-        ],
-        options: {
+    useEffect(() => {
+        const chartOptions = {
             chart: {
-                height: 150,
                 type: 'bar',
+                height: 240,
+                background: '#ffffff',
             },
             plotOptions: {
                 bar: {
-                    horizontal: true,
-                    columnWidth: '25%',
+                    horizontal: false,
                     endingShape: 'rounded',
+                    columnWidth: '55%',
                 },
             },
             dataLabels: {
-                enabled: true,
+                enabled: false,
             },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent'],
+            },
+            series: [
+                {
+                    name: 'Selesai',
+                    data: [selesaiDataLength],
+                },
+                {
+                    name: 'Batal',
+                    data: [batalDataLength],
+                },
+            ],
             xaxis: {
-                categories: ['Selesai', 'Batal'],
-                labels: {
-                    show: false,
+                categories: ['Data'],
+            },
+            yaxis: {
+                title: {
+                    text: 'Jumlah',
                 },
             },
             fill: {
-                colors: ['#5e35b1'],
+                opacity: 1,
             },
-        },
-    };
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + ' data';
+                    },
+                },
+            },
+        };
+
+        const chart = new ApexCharts(document.getElementById('vertical-bar-chart'), chartOptions);
+        chart.render();
+
+        return () => {
+            chart.destroy();
+        };
+    }, [selesaiDataLength, batalDataLength]);
 
     return (
-        <div className="w-full">
-            <div className="bg-white rounded-lg flex flex-col items-center justify-center w-[445px] h-auto flex-shrink-0">
-                <h1 className="text-2xl font-bold mb-4">Data Transaksi Kos</h1>
-                <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={188} />
+        <div className="bg-white rounded-lg flex flex-col items-center justify-center w-[445px] h-auto flex-shrink-0">
+            <div className="relative">
+                <h1 className="text-2xl font-bold text-center">Data Penjualan</h1>
+                <div id="vertical-bar-chart" />
             </div>
         </div>
     );
 };
 
-export default BarChartWithAPI;
+export default VerticalBarChart;

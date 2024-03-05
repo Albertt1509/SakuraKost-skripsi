@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Galery() {
+export default function Gallery() {
     const { id } = useParams();
     const [kost, setKost] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -29,6 +29,10 @@ export default function Galery() {
         setShowModal(false);
     };
 
+    const handleImageDoubleClick = () => {
+        setShowModal(false);
+    };
+
     return (
         <>
             <h1 className='font-bold text-4xl mb-3'>{kost.title}</h1>
@@ -39,6 +43,7 @@ export default function Galery() {
                             src={`${kost.photos[0]}`}
                             className="w-full h-[73vh] object-cover"
                             onClick={handleModalOpen}
+                            onDoubleClick={handleImageDoubleClick} // Add double click event
                         />
                     </div>
                 </div>
@@ -52,6 +57,7 @@ export default function Galery() {
                             height: '200px',
                         }}
                         onClick={handleModalOpen}
+                        onDoubleClick={handleImageDoubleClick} // Add double click event
                     >
                     </div>
                     <div
@@ -63,6 +69,7 @@ export default function Galery() {
                             height: '200px',
                         }}
                         onClick={handleModalOpen}
+                        onDoubleClick={handleImageDoubleClick} // Add double click event
                     >
                     </div>
                 </div>
@@ -75,6 +82,7 @@ export default function Galery() {
                             height: '200px',
                         }}
                         onClick={handleModalOpen}
+                        onDoubleClick={handleImageDoubleClick} // Add double click event
                     >
                     </div>
                     <div
@@ -86,6 +94,7 @@ export default function Galery() {
                             height: '200px',
                         }}
                         onClick={handleModalOpen}
+                        onDoubleClick={handleImageDoubleClick} // Add double click event
                     >
                     </div>
                 </div>
@@ -94,7 +103,7 @@ export default function Galery() {
             {/* Modal */}
             {showModal && (
                 <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center">
-                    <div className="bg-white p-4 rounded-lg w-full max-w-2xl overflow-y-auto">
+                    <div className="bg-white p-4 rounded-lg w-full max-w-2xl overflow-y-auto h-screen" onClick={handleModalClose}>
                         <div className="flex justify-end">
                             <button
                                 className="text-2xl cursor-pointer"
@@ -108,8 +117,9 @@ export default function Galery() {
                                 <div key={index} className="w-full md:w-1/3 lg:w-1/4 mb-4 px-2">
                                     <img
                                         src={`${photo}`}
-                                        className="w-full h-32 "
+                                        className="w-full h-70 relative"
                                         alt={`Photo ${index + 1}`}
+                                        onClick={handleModalClose} // Add close modal event
                                     />
                                 </div>
                             ))}

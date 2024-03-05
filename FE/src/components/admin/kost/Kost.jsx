@@ -14,9 +14,9 @@ export default function Kost() {
     const [title, setTitle] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
-    const [moreinfo, setMoreInfo] = useState('');
     const [capacity, setCapacity] = useState('');
     const [jenis, setJenis] = useState('');
+    const [link, setLink] = useState('');
     const [kamar, setKamar] = useState('');
     const [statusKamar, setStatusKamar] = useState('');
     const [location, setLocation] = useState('');
@@ -73,7 +73,7 @@ export default function Kost() {
     // for data fill
     async function handleSubmit(ev) {
         ev.preventDefault();
-        if (!title || !owner || !address || !description || !moreinfo || !capacity || !location || !phoneNumber || !price || !photos) {
+        if (!title || !owner || !address || !description || !capacity || !location || !link || !phoneNumber || !price || !photos) {
             toast.error('Tolong isi semua bagian ', {
                 position: 'top-right',
                 style: {
@@ -87,8 +87,8 @@ export default function Kost() {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('address', address);
+        formData.append('link', link);
         formData.append('description', description);
-        formData.append('moreinfo', moreinfo);
         formData.append('jenis', jenis);
         formData.append('kamar', kamar);
         formData.append('capacity', capacity);
@@ -127,9 +127,9 @@ export default function Kost() {
                     fileInput.value = '';
                 }
                 setTitle('');
+                setLink('');
                 setAddress('');
                 setDescription('');
-                setMoreInfo('');
                 setCapacity('');
                 setLocation('');
                 setOwner('');
@@ -170,7 +170,7 @@ export default function Kost() {
 
     return (
         <div className="bg-gray-100 h-[100] w-full">
-            <h1 className='text-4xl font-bold p-5'>Tambah Kost Kost</h1>
+            <h1 className='text-4xl font-bold p-5'>Tambah Data Kost</h1>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 {/* basic information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 grid-rows-auto md:grid-rows-2 gap-[40px] bg-white m-6 p-[30px] border-solid border-[#BAC7D5] border rounded">
@@ -192,6 +192,15 @@ export default function Kost() {
                             className="w-full p-3 border border-gray-300 rounded"
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Lokasi Berdasarkan Map</h2>
+                        <input
+                            type="text"
+                            placeholder="Tempelkan Link Goole MAP Kos Anda"
+                            value={link}
+                            onChange={(e) => setLink(e.target.value)}
                         />
                     </div>
                     <div>
@@ -226,7 +235,7 @@ export default function Kost() {
                         <h2 className="text-2xl font-bold">No Handphone</h2>
                         <input
                             type="text"
-                            placeholder="08xxx"
+                            placeholder="+62"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
@@ -272,6 +281,20 @@ export default function Kost() {
                             <option value="Campuran">Kost Campuran</option>
                         </select>
                     </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Status Kos</h2>
+                        <select
+                            value={statusKamar}
+                            name='statusKamar'
+                            onChange={(ev) => setStatusKamar(ev.target.value)}
+                            className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
+                        >
+                            <option value='' disabled selected>Pilih Status</option>
+                            <option value="Penuh">Penuh</option>
+                            <option value="tersedia">Tersedia</option>
+
+                        </select>
+                    </div>
                     {/* Upload Image */}
                     <div>
                         <h2 className="text-2xl font-bold ">Unggah Gambar</h2>
@@ -291,20 +314,7 @@ export default function Kost() {
                         )}
                         <p className='text-sm'>unggah minimal 5 foto</p>
                     </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Status Kos</h2>
-                        <select
-                            value={statusKamar}
-                            name='statusKamar'
-                            onChange={(ev) => setStatusKamar(ev.target.value)}
-                            className="border text-gray-400 border-gray-300 bg-white rounded-md px-2 py-2 mt-2 mb-2 w-full focus:outline-none focus:border-blue-500"
-                        >
-                            <option value='' disabled selected>Pilih Status</option>
-                            <option value="Penuh">Penuh</option>
-                            <option value="tersedia">Tersedia</option>
 
-                        </select>
-                    </div>
                 </div>
                 {/* description */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 grid-rows-auto md:grid-rows-2 gap-5 h-[1] bg-white md:h-[200px] m-6 p-[30px] border-solid gray-500 border-2 rounded">
@@ -314,15 +324,6 @@ export default function Kost() {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Tambah Deskripsi Kost"
-                            className="w-full p-3 border border-gray-300 rounded"
-                        ></textarea>
-                    </div>
-                    <div style={{ height: "50%" }}>
-                        <h2 className="text-2xl font-bold">Informasi Tambahan</h2>
-                        <textarea
-                            value={moreinfo}
-                            onChange={(e) => setMoreInfo(e.target.value)}
-                            placeholder="Contoh informasi tambahan : Dilarang membawa teman untuk menginap"
                             className="w-full p-3 border border-gray-300 rounded"
                         ></textarea>
                     </div>

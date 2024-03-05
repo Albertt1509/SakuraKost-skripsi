@@ -50,8 +50,8 @@ const BarChartWithAPI = () => {
     };
 
     return (
-        <div className="w-full">
-            <div className="bg-white rounded-lg flex flex-col items-center justify-center w-[445px] h-auto flex-shrink-0">
+        <div className="">
+            <div className="bg-white rounded-lg flex flex-col items-center justify-center w-[445px] h-[288px] flex-shrink-0">
                 <h1 className="text-2xl font-bold mb-4">Data Jumlah Kos</h1>
                 <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={188} />
             </div>
