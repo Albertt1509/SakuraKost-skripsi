@@ -155,8 +155,6 @@ export default function Pembayaran() {
             setTransferFile(file);
         }
     };
-
-
     const handleKonfirmasiPembayaran = async () => {
         try {
             const formData = new FormData();

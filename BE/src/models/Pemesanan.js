@@ -26,6 +26,11 @@ const pemesananSchema = new Schema({
   },
   selpi: [{ type: String, required: true }],
   transfer: [{ type: String, required: true }],
+
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 const Pemesanan = mongoose.model("Pemesanan", pemesananSchema);

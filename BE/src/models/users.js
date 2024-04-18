@@ -35,6 +35,7 @@ const userSchema = new Schema({
       ref: "Kost",
     },
   ],
+
 });
 
 const userModel = mongoose.model("user", userSchema);

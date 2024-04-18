@@ -121,7 +121,7 @@ const KostList = ({ jenisKos, kostData: initialKostData, onRemoveFavorite }) => 
                                     <img
                                         src={`${kost.photos[0]}`}
                                         alt={kost.namaKost}
-                                        className="w-full h-[65vh] z-0"
+                                        className="w-full h-[55vh] z-0"
                                     />
                                     <div className="flex">
                                         <h2 className="text-lg font-semibold mb-2">{kost.title}</h2>
