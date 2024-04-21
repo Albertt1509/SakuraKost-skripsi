@@ -73,10 +73,7 @@ export default function AdminPage() {
                         )}
                     </li>
 
-                    <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
-                        <RiHomeSmile2Line className="text-white" />
-                        <Link to={'/admin/product'}>Order </Link>
-                    </li>
+
                     <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
                         <AiOutlineUser className="text-white" />
                         <Link to={'/admin/user'}>User</Link>
@@ -135,10 +132,7 @@ export default function AdminPage() {
                             )}
                         </div>
                     </li>
-                    <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
-                        <RiHomeSmile2Line className="text-white" />
-                        <Link to={'/admin/product'}>Order</Link>
-                    </li>
+
                     <li className="flex pt-3 pb-3 pl-3 gap-2 hover:opacity-100 items-center">
                         <AiOutlineUser className="text-white" />
                         <Link to={'/admin/user'}>User</Link>
