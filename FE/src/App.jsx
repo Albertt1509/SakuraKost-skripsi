@@ -20,8 +20,12 @@ import Product from './components/admin/product/Product'
 import AdminLay from './components/navbar/LayoutAdmin'
 import User from './components/admin/user/User'
 import Edit from './components/admin/kost/Edit'
-
-
+// pemilik
+import IndexPemilik from './components/pemilik/indexPemilik'
+import PemilikLay from './components/navbar/LayoutPemilik'
+import AddKost from './components/pemilik/kost/AddKost'
+import EditKost from './components/pemilik/kost/EditKost'
+import Order from './components/pemilik/order/order'
 //api
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true
@@ -49,6 +53,12 @@ function App() {
           <Route path='/admin/kost' element={<Kost />} />
           <Route path='/admin/user' element={<User />} />
           <Route path='/admin/edit' element={<Edit />} />
+        </Route>
+        <Route path='/pemilik' element={<PemilikLay />} >
+          <Route index element={<IndexPemilik />} />
+          <Route path='/pemilik/kost' element={<AddKost />} />
+          <Route path='/pemilik/edit' element={<EditKost />} />
+          <Route path='/pemilik/order' element={<Order />} />
         </Route>
       </Routes>
     </UserContextProvider>

@@ -36,7 +36,7 @@ export default function Login() {
             setAlertMessage('Login berhasil');
             setAlertType('success');
             setShowAlert(true);
-            setRedirect(data.role === 'superAdmin' || data.role === 'admin' ? '/admin' : '/');
+            setRedirect(data.role === 'superAdmin' ? '/admin' : (data.role === 'admin' ? '/pemilik' : '/'));
         } catch (e) {
             setAlertMessage('Username dan Password yang Anda Masukkan Salah, Coba Lagi');
             setAlertType('error');
