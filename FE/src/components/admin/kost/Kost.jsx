@@ -345,6 +345,8 @@ export default function Kost() {
                             </svg>
                             <span className='text-sm'>Wifi</span>
                         </label>
+
+
                         <label className='border border-lg shadow-sm bg-white w-full items-center text-center ' >
                             <input
                                 type="checkbox"

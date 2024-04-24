@@ -37,35 +37,35 @@ export default function EditKost() {
             let kostTitle = '';
             switch (user.name) {
                 case 'adminOBH':
-                    kostTitle = 'OBH';
+                    kostTitle = '65e6b4ac574143ff5f31bc65';
                     break;
                 case 'adminHappy':
-                    kostTitle = 'Happy Kost';
+                    kostTitle = '65e6bc7410f1effb8cc32ea2';
                     break;
                 case 'adminValentine':
-                    kostTitle = 'Valentine';
+                    kostTitle = '65e6beff10f1effb8cc32f0e';
                     break;
                 case 'adminYesOke':
-                    kostTitle = 'YES OKE';
+                    kostTitle = '65e7d8ce2394e01f68a74c2d';
                     break;
                 case 'adminWinnie':
-                    kostTitle = 'Winnie Kost';
+                    kostTitle = '662134a148e726063d89cc40';
                     break;
                 case 'adminJurasic':
-                    kostTitle = 'Jurasic Park';
+                    kostTitle = '6621e3a63eb96c836c06d32e';
                     break;
                 case 'adminHebron':
-                    kostTitle = 'Hebron';
+                    kostTitle = '6621e5323eb96c836c06d330';
                     break;
                 case 'admin':
-                    kostTitle = 'Hebron';
+                    kostTitle = '6627ec1c5a715d9b543d8e25';
                     break;
 
             }
 
             Axios.get('/api/kost')
                 .then((response) => {
-                    const filteredKostData = response.data.filter((kost) => kost.title === kostTitle);
+                    const filteredKostData = response.data.filter((kost) => kost._id === kostTitle);
                     setKostData(filteredKostData);
                 })
                 .catch((error) => {
