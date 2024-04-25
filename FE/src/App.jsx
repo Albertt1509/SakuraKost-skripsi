@@ -27,7 +27,7 @@ import AddKost from './components/pemilik/kost/AddKost'
 import EditKost from './components/pemilik/kost/EditKost'
 import Order from './components/pemilik/order/order'
 //api
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://cute-teal-penguin-wear.cyclic.app/";
 axios.defaults.withCredentials = true
 function App() {
 
